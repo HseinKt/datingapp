@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Profile;
 
 
 class AuthController extends Controller
@@ -12,7 +13,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:api', ['except' => ['login','register','EditProfile']]);
     }
 
     public function login(Request $request)
@@ -89,4 +90,27 @@ class AuthController extends Controller
         ]);
     }
 
+    public function EditProfile(Request $request)
+    {
+        $user = Auth::user();
+        if ($user) {
+            //$found_user = User::where('id',$user->id)->first();
+            $profile = Profile::updateOrCreate(
+                ['user_id' => $request->user_id],
+                ['description' => $request->description, 'age' => $request->age,'gender' => $request->gender],
+            );
+            return response()->json([
+                'status' => 'success',
+                'message' => 'profile updates successfully',
+                'profile' => $profile,
+            ]);
+        }else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+    }
+
 }
+

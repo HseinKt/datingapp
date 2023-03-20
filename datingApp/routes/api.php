@@ -19,13 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::post('/login', [AuthController::class, "login"]);
-
-// //added
-// Route::get('login', 'MainController@showLoginForm')->name('login');
-// Route::post('login', 'MainController@login');
-// Route::post('logout', 'MainController@logout')->name('logout');
-
 Route::group(["prefix" => "v0.0.1"], function(){
 
     Route::match(['get', 'post'], '/login', [AuthController::class, 'login']);
@@ -33,5 +26,6 @@ Route::group(["prefix" => "v0.0.1"], function(){
 
     Route::post('/register', [AuthController::class, "register"]);
     Route::get('/register', [AuthController::class, "register"]);
-    
+    Route::post('/EditProfile', [AuthController::class, "EditProfile"]);
+
 });
