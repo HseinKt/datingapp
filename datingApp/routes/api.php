@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Route::post('/login', [AuthController::class, "login"]);
+
+// //added
+// Route::get('login', 'MainController@showLoginForm')->name('login');
+// Route::post('login', 'MainController@login');
+// Route::post('logout', 'MainController@logout')->name('logout');
+
+Route::group(["prefix" => "v0.0.1"], function(){
+
+    Route::match(['get', 'post'], '/login', [AuthController::class, 'login']);
+    // Route::match(['get', 'post'], '/logout', [AuthController::class, "logout"]);
+
+    Route::post('/register', [AuthController::class, "register"]);
+    Route::get('/register', [AuthController::class, "register"]);
+    
 });
