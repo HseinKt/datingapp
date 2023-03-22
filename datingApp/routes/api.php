@@ -29,6 +29,7 @@ Route::group(["prefix" => "v0.0.1"], function(){
     Route::post('/getUserbyAge', [AuthController::class, "getUserbyAge"]);
     Route::post('/setLocation', [AuthController::class,"setLocation"]);
     Route::post('/getUserbyLocation', [AuthController::class, "getUserbyLocation"]);
+    Route::post('/getUserbyName', [AuthController::class, "getUserbyName"]);
 
-
+    
 });

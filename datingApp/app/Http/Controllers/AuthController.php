@@ -14,7 +14,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register','EditProfile','getAllUsers','getUserbyAge','setLocation','getUserbyLocation']]);
+        $this->middleware('auth:api', ['except' => ['login','register','EditProfile','getAllUsers','getUserbyAge','setLocation','getUserbyLocation','getUserbyName']]);
     }
 
     public function login(Request $request)
@@ -160,6 +160,18 @@ class AuthController extends Controller
             'users' => $users,
         ]);
     }
+
+    public function getUserbyName(Request $request)
+    {
+        $users = User::where('name',$request->name)->get();
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'user founded',
+            'users' => $users,
+        ]);
+    }
+
 
 }
 
