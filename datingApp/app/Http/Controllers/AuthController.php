@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Location;
 
 
 class AuthController extends Controller
@@ -13,7 +14,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register','EditProfile','getAllUsers','getUserbyAge']]);
+        $this->middleware('auth:api', ['except' => ['login','register','EditProfile','getAllUsers','getUserbyAge','setLocation','getUserbyLocation']]);
     }
 
     public function login(Request $request)
@@ -133,6 +134,22 @@ class AuthController extends Controller
             'users' => $users,
         ]);
     }
+
+    public function setLocation(Request $request) 
+    {
+        $users = Location::updateOrCreate(
+            ['user_id' => $request->user_id],
+            ['address' => $request->address, 'city' => $request->city,'state' => $request->state],
+        );
+       
+        return response()->json([
+            'status' => 'success',
+            'message' => 'user founded',
+            'users' => $users,
+        ]);
+    }
+
+    
 
 }
 
