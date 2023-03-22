@@ -27,9 +27,8 @@ Route::group(["prefix" => "v0.0.1"], function(){
     Route::post('/EditProfile', [AuthController::class, "EditProfile"]);
     Route::get('/getAllUsers', [AuthController::class, "getAllUsers"]);
     Route::post('/getUserbyAge', [AuthController::class, "getUserbyAge"]);
-    Route::post('/getUserbyLocation', [AuthController::class, "getUserbyLocation"]);
-    // Route::match(['get', 'post'],'/setLocation', [AuthController::class," setLocation"]);
     Route::post('/setLocation', [AuthController::class,"setLocation"]);
+    Route::post('/getUserbyLocation', [AuthController::class, "getUserbyLocation"]);
 
 
 });

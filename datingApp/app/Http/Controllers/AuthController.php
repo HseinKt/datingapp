@@ -149,7 +149,17 @@ class AuthController extends Controller
         ]);
     }
 
-    
+    public function getUserbyLocation(Request $request) 
+    {
+        $users = Location::where('city',$request->city)->get();
+        $city = $request->city;
+        return response()->json([
+            'status' => 'success',
+            'message' => 'user founded',
+            'city' => $city,
+            'users' => $users,
+        ]);
+    }
 
 }
 
