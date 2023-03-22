@@ -27,5 +27,6 @@ Route::group(["prefix" => "v0.0.1"], function(){
     Route::post('/register', [AuthController::class, "register"]);
     Route::get('/register', [AuthController::class, "register"]);
     Route::post('/EditProfile', [AuthController::class, "EditProfile"]);
+    Route::get('/getAllUsers', [AuthController::class, "getAllUsers"]);
 
 });

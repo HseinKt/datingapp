@@ -13,7 +13,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register','EditProfile']]);
+        $this->middleware('auth:api', ['except' => ['login','register','EditProfile','getAllUsers']]);
     }
 
     public function login(Request $request)
@@ -112,5 +112,21 @@ class AuthController extends Controller
         }
     }
 
+    public function getAllUsers(Request $request)
+    {
+        $users = User::all();
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'user founded',
+            'users' => $users,
+        ]);
+    }
+
 }
 
+//->where($request->user_id = 2)
+// foreach ($users as $u) 
+//         {
+//             var_dump($u->name);
+//         }
