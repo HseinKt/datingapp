@@ -22,11 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(["prefix" => "v0.0.1"], function(){
 
     Route::match(['get', 'post'], '/login', [AuthController::class, 'login']);
-    // Route::match(['get', 'post'], '/logout', [AuthController::class, "logout"]);
-
     Route::post('/register', [AuthController::class, "register"]);
     Route::get('/register', [AuthController::class, "register"]);
     Route::post('/EditProfile', [AuthController::class, "EditProfile"]);
     Route::get('/getAllUsers', [AuthController::class, "getAllUsers"]);
+    Route::post('/getUserbyAge', [AuthController::class, "getUserbyAge"]);
 
 });

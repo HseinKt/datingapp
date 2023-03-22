@@ -13,7 +13,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register','EditProfile','getAllUsers']]);
+        $this->middleware('auth:api', ['except' => ['login','register','EditProfile','getAllUsers','getUserbyAge']]);
     }
 
     public function login(Request $request)
@@ -123,9 +123,19 @@ class AuthController extends Controller
         ]);
     }
 
+    public function getUserbyAge(Request $request)
+    {
+        $users = Profile::where('age',$request->age)->get();
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'user founded',
+            'users' => $users,
+        ]);
+    }
+
 }
 
-//->where($request->user_id = 2)
 // foreach ($users as $u) 
 //         {
 //             var_dump($u->name);
