@@ -201,12 +201,12 @@ class AuthController extends Controller
 
         if ($source_id != $dest_id) 
         {
+                
             $users = Favorite::create([
                 'active' => $active,
                 'source_id' => $source_id, 
                 'dest_id' => $dest_id, 
             ]);
-           
             return response()->json([
                 'status' => 'success',
                 'message' => 'added user favorite',
@@ -223,29 +223,20 @@ class AuthController extends Controller
     
     public function removeFavorite(Request $request) 
     {
-        $active = 0;
+        // $active = 0;
         $source_id = $request->source_id;
-        $dest_id  = $request->dest_id ;
+        $dest_id  = $request->dest_id;
 
-        if ($source_id != $dest_id) 
-        {
-            $users = Favorite::create([
-                'active' => $active,
-                'source_id' => $source_id, 
-                'dest_id' => $dest_id, 
-            ]);
-           
-            return response()->json([
+        $users = Favorite::where('active',1)
+                            ->where('source_id',$source_id)
+                            ->where('dest_id',$dest_id)
+                            ->update(['active' => 0]);
+        return response()->json([
                 'status' => 'success',
                 'message' => 'removed user favorite',
                 'users' => $users,
-            ]);
-        }else {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'this is the same user',
-            ]);
-        }
+        ]);
+
     }
     
 }
