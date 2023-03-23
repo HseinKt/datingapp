@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('favorites', function (Blueprint $table) {
+            $table->id();
             $table->string('active');
             $table->unsignedBigInteger('source_id');
             $table->unsignedBigInteger('dest_id');
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->foreign('dest_id')->references('id')->on('users');
         });
     }
+    
 
     /**
      * Reverse the migrations.

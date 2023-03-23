@@ -31,6 +31,8 @@ Route::group(["prefix" => "v0.0.1"], function(){
     Route::post('/getUserbyLocation', [AuthController::class, "getUserbyLocation"]);
     Route::post('/getUserbyName', [AuthController::class, "getUserbyName"]);
     Route::post('/addImage', [AuthController::class, "addImage"]);
+    Route::post('/addFavorite', [AuthController::class, "addFavorite"]);
+    Route::post('/removeFavorite', [AuthController::class, "removeFavorite"]);
 
     
 });

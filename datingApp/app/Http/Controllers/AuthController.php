@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Profile;
 use App\Models\Location;
 use App\Models\Picture;
-
+use App\Models\Favorite;
 
 
 class AuthController extends Controller
@@ -16,7 +16,12 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register','EditProfile','getAllUsers','getUserbyAge','setLocation','getUserbyLocation','getUserbyName','addImage']]);
+        $this->middleware('auth:api', ['except' => [
+            'login','register','EditProfile',
+            'getAllUsers','getUserbyAge','setLocation',
+            'getUserbyLocation','getUserbyName','addImage',
+            'addFavorite','removeFavorite'
+            ]]);
     }
 
     public function login(Request $request)
@@ -187,8 +192,61 @@ class AuthController extends Controller
             'users' => $users,
         ]);
     }
-        
 
+    public function addFavorite(Request $request) 
+    {
+        $active = 1;
+        $source_id = $request->source_id;
+        $dest_id  = $request->dest_id ;
+
+        if ($source_id != $dest_id) 
+        {
+            $users = Favorite::create([
+                'active' => $active,
+                'source_id' => $source_id, 
+                'dest_id' => $dest_id, 
+            ]);
+           
+            return response()->json([
+                'status' => 'success',
+                'message' => 'added user favorite',
+                'users' => $users,
+            ]);
+        }
+        else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'this is the same user',
+            ]);
+        }
+    }
+    
+    public function removeFavorite(Request $request) 
+    {
+        $active = 0;
+        $source_id = $request->source_id;
+        $dest_id  = $request->dest_id ;
+
+        if ($source_id != $dest_id) 
+        {
+            $users = Favorite::create([
+                'active' => $active,
+                'source_id' => $source_id, 
+                'dest_id' => $dest_id, 
+            ]);
+           
+            return response()->json([
+                'status' => 'success',
+                'message' => 'removed user favorite',
+                'users' => $users,
+            ]);
+        }else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'this is the same user',
+            ]);
+        }
+    }
     
 }
 
