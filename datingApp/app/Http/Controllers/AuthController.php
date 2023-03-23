@@ -20,7 +20,7 @@ class AuthController extends Controller
             'login','register','EditProfile',
             'getAllUsers','getUserbyAge','setLocation',
             'getUserbyLocation','getUserbyName','addImage',
-            'addFavorite','removeFavorite'
+            'addFavorite','removeFavoriteOrBlock', 'addBlock'
             ]]);
     }
 
@@ -202,11 +202,16 @@ class AuthController extends Controller
 
         if ($source_id != $dest_id) 
         {
-            $users = Favorite::where('active',0)
+            $check1 = Favorite::where('active',0)
                             ->where('source_id',$source_id)
                             ->where('dest_id',$dest_id)
                             ->update(['active' => $active]);
-            if( $users == 0)
+            $check2 = Favorite::where('active',2)
+                            ->where('source_id',$source_id)
+                            ->where('dest_id',$dest_id)
+                            ->update(['active' => $active]);
+
+            if( $check1 == 0 && $check2 ==0)
             {
                 $users = Favorite::updateOrCreate(
                     ['active' => 1, 'source_id' => $source_id, 'dest_id' => $dest_id],
@@ -227,7 +232,7 @@ class AuthController extends Controller
         }
     }
     
-    public function removeFavorite(Request $request) 
+    public function removeFavoriteOrBlock(Request $request) 
     {
         $active = 0;
         $source_id = $request->source_id;
@@ -237,12 +242,55 @@ class AuthController extends Controller
                             ->where('source_id',$source_id)
                             ->where('dest_id',$dest_id)
                             ->update(['active' => $active]);
+        $users = Favorite::where('active',2)
+                            ->where('source_id',$source_id)
+                            ->where('dest_id',$dest_id)
+                            ->update(['active' => $active]);
         return response()->json([
                 'status' => 'success',
                 'message' => 'removed user favorite',
                 'users' => $users,
         ]);
     }
+
+    public function addBlock(Request $request) 
+    {
+        $active = 2;
+        $source_id = $request->source_id;
+        $dest_id  = $request->dest_id ;
+        $id = $request->id;
+
+        if ($source_id != $dest_id) 
+        {
+            $check1 = Favorite::where('active',0)
+                            ->where('source_id',$source_id)
+                            ->where('dest_id',$dest_id)
+                            ->update(['active' => $active]);
+            $check2 = Favorite::where('active',1)
+                            ->where('source_id',$source_id)
+                            ->where('dest_id',$dest_id)
+                            ->update(['active' => $active]);
+            if( $check1 == 0 && $check2 ==0)
+            {
+                $users = Favorite::updateOrCreate(
+                    ['active' => 2, 'source_id' => $source_id, 'dest_id' => $dest_id],
+                    ['active' => $active],
+                );
+            }
+            return response()->json([
+                'status' => 'success',
+                'message' => 'added user favorite',
+                'users' => $users,
+            ]);
+        }
+        else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'this is the same user',
+            ]);
+        }
+    }
+    
     
 }
 

@@ -24,15 +24,16 @@ Route::group(["prefix" => "v0.0.1"], function(){
     Route::match(['get', 'post'], '/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, "register"]);
     Route::get('/register', [AuthController::class, "register"]);
-    Route::post('/EditProfile', [AuthController::class, "EditProfile"]);
-    Route::get('/getAllUsers', [AuthController::class, "getAllUsers"]);
-    Route::post('/getUserbyAge', [AuthController::class, "getUserbyAge"]);
-    Route::post('/setLocation', [AuthController::class,"setLocation"]);
-    Route::post('/getUserbyLocation', [AuthController::class, "getUserbyLocation"]);
-    Route::post('/getUserbyName', [AuthController::class, "getUserbyName"]);
-    Route::post('/addImage', [AuthController::class, "addImage"]);
-    Route::post('/addFavorite', [AuthController::class, "addFavorite"]);
-    Route::post('/removeFavorite', [AuthController::class, "removeFavorite"]);
+    Route::post('/Edit_profile', [AuthController::class, "EditProfile"]);
+    Route::get('/get_all_users', [AuthController::class, "getAllUsers"]);
+    Route::post('/get_user_by_age', [AuthController::class, "getUserbyAge"]);
+    Route::post('/set_location', [AuthController::class,"setLocation"]);
+    Route::post('/get_user_by_location', [AuthController::class, "getUserbyLocation"]);
+    Route::post('/get_user_by_name', [AuthController::class, "getUserbyName"]);
+    Route::post('/add_image', [AuthController::class, "addImage"]);
+    Route::post('/add_avorite', [AuthController::class, "addFavorite"]);
+    Route::post('/remove_favorite_Or_Block', [AuthController::class, "removeFavoriteOrBlock"]);
+    Route::post('/add_block', [AuthController::class, "addBlock"]);
 
     
 });
