@@ -30,6 +30,7 @@ Route::group(["prefix" => "v0.0.1"], function(){
     Route::post('/setLocation', [AuthController::class,"setLocation"]);
     Route::post('/getUserbyLocation', [AuthController::class, "getUserbyLocation"]);
     Route::post('/getUserbyName', [AuthController::class, "getUserbyName"]);
+    Route::post('/addImage', [AuthController::class, "addImage"]);
 
     
 });

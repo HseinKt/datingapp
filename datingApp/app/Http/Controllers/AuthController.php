@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\Location;
+use App\Models\Picture;
+
 
 
 class AuthController extends Controller
@@ -14,7 +16,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register','EditProfile','getAllUsers','getUserbyAge','setLocation','getUserbyLocation','getUserbyName']]);
+        $this->middleware('auth:api', ['except' => ['login','register','EditProfile','getAllUsers','getUserbyAge','setLocation','getUserbyLocation','getUserbyName','addImage']]);
     }
 
     public function login(Request $request)
@@ -172,10 +174,21 @@ class AuthController extends Controller
         ]);
     }
 
+    public function addImage(Request $request) 
+    {
+        $users = Picture::create([
+            'user_id' => $request->user_id,
+            'img' => $request->img, 
+        ]);
 
+        return response()->json([
+            'status' => 'success',
+            'message' => 'picture added',
+            'users' => $users,
+        ]);
+    }
+        
+
+    
 }
 
-// foreach ($users as $u) 
-//         {
-//             var_dump($u->name);
-//         }
