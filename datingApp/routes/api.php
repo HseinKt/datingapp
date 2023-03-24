@@ -25,7 +25,7 @@ Route::group(["prefix" => "v0.0.1"], function(){
     Route::post('/register', [AuthController::class, "register"]);
     Route::get('/register', [AuthController::class, "register"]);
 
-    // Route::group(['middleware' => 'auth:api'], function(){
+    Route::group(['middleware' => 'auth:api'], function(){
         Route::post('/Edit_profile', [AuthController::class, "EditProfile"]);
         Route::get('/get_all_users', [AuthController::class, "getAllUsers"]);
         Route::post('/get_user_by_age', [AuthController::class, "getUserbyAge"]);
@@ -37,8 +37,9 @@ Route::group(["prefix" => "v0.0.1"], function(){
         Route::post('/remove_favorite_Or_Block', [AuthController::class, "removeFavoriteOrBlock"]);
         Route::post('/add_block', [AuthController::class, "addBlock"]);
         Route::post('/send_message', [AuthController::class, "sendMessage"]);
+        Route::post('/get_messages', [AuthController::class, "getMessages"]);
 
-   // });
+   });
     
 
     

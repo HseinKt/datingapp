@@ -22,7 +22,7 @@ class AuthController extends Controller
             'getAllUsers','getUserbyAge','setLocation',
             'getUserbyLocation','getUserbyName','addImage',
             'addFavorite','removeFavoriteOrBlock', 'addBlock',
-            'sendMessage'
+            'sendMessage','getMessages'
             ]]);
     }
 
@@ -299,14 +299,13 @@ class AuthController extends Controller
     {
         $source_id = $request->sender_id;
         $dest_id  = $request->receiver_id;
-        $id = $request->id;
 
         if ($source_id != $dest_id) 
         {
             $users = Message::create([
                 'body' => $request->body,
-                'sender_id' => $request->sender_id,
-                'receiver_id' => $request->receiver_id,
+                'sender_id' => $source_id,
+                'receiver_id' => $dest_id,
             ]);
 
             return response()->json([
@@ -323,6 +322,19 @@ class AuthController extends Controller
             ]);
         }
     }
+
+    public function getMessages(Request $request)
+    {
+        $user = Auth::user();
+        $name = User::where('id',$user->id)->first();
+        $users = Message::where('sender_id',$user->id)->get();
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'messages founded',
+            'name' => $name,
+            'users' => $users,
+        ]);
+    }
     
 }
-
