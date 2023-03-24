@@ -9,6 +9,7 @@ use App\Models\Profile;
 use App\Models\Location;
 use App\Models\Picture;
 use App\Models\Favorite;
+use App\Models\Message;
 
 
 class AuthController extends Controller
@@ -20,7 +21,8 @@ class AuthController extends Controller
             'login','register','EditProfile',
             'getAllUsers','getUserbyAge','setLocation',
             'getUserbyLocation','getUserbyName','addImage',
-            'addFavorite','removeFavoriteOrBlock', 'addBlock'
+            'addFavorite','removeFavoriteOrBlock', 'addBlock',
+            'sendMessage'
             ]]);
     }
 
@@ -224,7 +226,8 @@ class AuthController extends Controller
                 'users' => $users,
             ]);
         }
-        else {
+        else 
+        {
             return response()->json([
                 'status' => 'error',
                 'message' => 'this is the same user',
@@ -279,11 +282,12 @@ class AuthController extends Controller
             }
             return response()->json([
                 'status' => 'success',
-                'message' => 'added user favorite',
+                'message' => 'added user block',
                 'users' => $users,
             ]);
         }
-        else {
+        else 
+        {
             return response()->json([
                 'status' => 'error',
                 'message' => 'this is the same user',
@@ -291,6 +295,34 @@ class AuthController extends Controller
         }
     }
     
+    public function sendMessage(Request $request) 
+    {
+        $source_id = $request->sender_id;
+        $dest_id  = $request->receiver_id;
+        $id = $request->id;
+
+        if ($source_id != $dest_id) 
+        {
+            $users = Message::create([
+                'body' => $request->body,
+                'sender_id' => $request->sender_id,
+                'receiver_id' => $request->receiver_id,
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'added user favorite',
+                'users' => $users,
+            ]);
+        }
+        else 
+        {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'this is the same user',
+            ]);
+        }
+    }
     
 }
 

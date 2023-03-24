@@ -24,16 +24,22 @@ Route::group(["prefix" => "v0.0.1"], function(){
     Route::match(['get', 'post'], '/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, "register"]);
     Route::get('/register', [AuthController::class, "register"]);
-    Route::post('/Edit_profile', [AuthController::class, "EditProfile"]);
-    Route::get('/get_all_users', [AuthController::class, "getAllUsers"]);
-    Route::post('/get_user_by_age', [AuthController::class, "getUserbyAge"]);
-    Route::post('/set_location', [AuthController::class,"setLocation"]);
-    Route::post('/get_user_by_location', [AuthController::class, "getUserbyLocation"]);
-    Route::post('/get_user_by_name', [AuthController::class, "getUserbyName"]);
-    Route::post('/add_image', [AuthController::class, "addImage"]);
-    Route::post('/add_avorite', [AuthController::class, "addFavorite"]);
-    Route::post('/remove_favorite_Or_Block', [AuthController::class, "removeFavoriteOrBlock"]);
-    Route::post('/add_block', [AuthController::class, "addBlock"]);
+
+    // Route::group(['middleware' => 'auth:api'], function(){
+        Route::post('/Edit_profile', [AuthController::class, "EditProfile"]);
+        Route::get('/get_all_users', [AuthController::class, "getAllUsers"]);
+        Route::post('/get_user_by_age', [AuthController::class, "getUserbyAge"]);
+        Route::post('/set_location', [AuthController::class,"setLocation"]);
+        Route::post('/get_user_by_location', [AuthController::class, "getUserbyLocation"]);
+        Route::post('/get_user_by_name', [AuthController::class, "getUserbyName"]);
+        Route::post('/add_image', [AuthController::class, "addImage"]);
+        Route::post('/add_favorite', [AuthController::class, "addFavorite"]);
+        Route::post('/remove_favorite_Or_Block', [AuthController::class, "removeFavoriteOrBlock"]);
+        Route::post('/add_block', [AuthController::class, "addBlock"]);
+        Route::post('/send_message', [AuthController::class, "sendMessage"]);
+
+   // });
+    
 
     
 });
