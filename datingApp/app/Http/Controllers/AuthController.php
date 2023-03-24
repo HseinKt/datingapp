@@ -100,7 +100,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function EditProfile(Request $request)
+    public function editProfile(Request $request)
     {
         $user = Auth::user();
         if ($user) {

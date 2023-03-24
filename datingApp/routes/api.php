@@ -26,7 +26,7 @@ Route::group(["prefix" => "v0.0.1"], function(){
     Route::get('/register', [AuthController::class, "register"]);
 
     Route::group(['middleware' => 'auth:api'], function(){
-        Route::post('/Edit_profile', [AuthController::class, "EditProfile"]);
+        Route::post('/edit_profile', [AuthController::class, "editProfile"]);
         Route::get('/get_all_users', [AuthController::class, "getAllUsers"]);
         Route::post('/get_user_by_age', [AuthController::class, "getUserbyAge"]);
         Route::post('/set_location', [AuthController::class,"setLocation"]);
