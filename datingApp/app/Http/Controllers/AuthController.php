@@ -203,7 +203,6 @@ class AuthController extends Controller
         $active = 1;
         $source_id = $user->id;
         $dest_id  = $request->dest_id ;
-        $id = $request->id;
 
         if ($source_id != $dest_id) 
         {
@@ -240,8 +239,9 @@ class AuthController extends Controller
     
     public function removeFavoriteOrBlock(Request $request) 
     {
+        $user = Auth::user();
         $active = 0;
-        $source_id = $request->source_id;
+        $source_id = $user->id;
         $dest_id  = $request->dest_id;
 
         $users = Favorite::where('active',1)
@@ -261,8 +261,9 @@ class AuthController extends Controller
 
     public function addBlock(Request $request) 
     {
+        $user = Auth::user();
         $active = 2;
-        $source_id = $request->source_id;
+        $source_id = $user->id;
         $dest_id  = $request->dest_id ;
         $id = $request->id;
 
@@ -300,7 +301,8 @@ class AuthController extends Controller
     
     public function sendMessage(Request $request) 
     {
-        $source_id = $request->sender_id;
+        $user = Auth::user();
+        $source_id = $user->id;
         $dest_id  = $request->receiver_id;
 
         if ($source_id != $dest_id) 
