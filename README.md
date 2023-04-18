@@ -1,7 +1,7 @@
 # datingapp
 Creating a dating application using Laravel, PHP, HTML, CSS (Flexbox), and JS (ES6).   
 
-## userFrames
+## user Stories
 <ul>
    <li>As a user, I want the website to be responsive so that I can access it from any device. </li>
    <li>As a user, I want to be able to create an account and login so that I can access the website's features. </li>
