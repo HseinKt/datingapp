@@ -106,7 +106,7 @@ class AuthController extends Controller
         if ($user) {
             //$found_user = User::where('id',$user->id)->first();
             $profile = Profile::updateOrCreate(
-                ['user_id' => $request->user_id],
+                ['user_id' => $user->id],
                 ['description' => $request->description, 'age' => $request->age,'gender' => $request->gender],
             );
             return response()->json([
