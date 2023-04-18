@@ -146,8 +146,9 @@ class AuthController extends Controller
 
     public function setLocation(Request $request) 
     {
+        $user = Auth::user();
         $users = Location::updateOrCreate(
-            ['user_id' => $request->user_id],
+            ['user_id' => $user->id],
             ['address' => $request->address, 'city' => $request->city,'state' => $request->state],
         );
        
@@ -183,8 +184,9 @@ class AuthController extends Controller
 
     public function addImage(Request $request) 
     {
+        $user = Auth::user();
         $users = Picture::create([
-            'user_id' => $request->user_id,
+            'user_id' => $user->id,
             'img' => $request->img, 
         ]);
 
@@ -197,8 +199,9 @@ class AuthController extends Controller
 
     public function addFavorite(Request $request) 
     {
+        $user = Auth::user();
         $active = 1;
-        $source_id = $request->source_id;
+        $source_id = $user->id;
         $dest_id  = $request->dest_id ;
         $id = $request->id;
 
