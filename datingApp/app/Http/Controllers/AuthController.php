@@ -192,9 +192,6 @@ class AuthController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        // //store image to disk
-        // $path = $image->store('images', 'public');
-
         //convert image to base64
         $base64Image = base64_encode(Image::make($image)->encode('jpeg'));
 
@@ -206,7 +203,7 @@ class AuthController extends Controller
         
         return response()->json([
             'status' => 'success',
-            'message' => 'Image uploaded and converted to base64',
+            'message' => 'Image uploaded and saved to database',
             'base64Image' => $base64Image,
         ]);
     }
