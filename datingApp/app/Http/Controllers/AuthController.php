@@ -18,11 +18,12 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => [
-            'login','register','EditProfile',
-            'getAllUsers','getUserbyAge','setLocation',
-            'getUserbyLocation','getUserbyName','addImage',
-            'addFavorite','removeFavoriteOrBlock', 'addBlock',
-            'sendMessage','getMessages'
+            'login','register'
+            // ,'EditProfile',
+            // 'getAllUsers','getUserbyAge','setLocation',
+            // 'getUserbyLocation','getUserbyName','addImage',
+            // 'addFavorite','removeFavoriteOrBlock', 'addBlock',
+            // 'sendMessage','getMessages'
             ]]);
     }
 
@@ -185,15 +186,28 @@ class AuthController extends Controller
     public function addImage(Request $request) 
     {
         $user = Auth::user();
-        $users = Picture::create([
-            'user_id' => $user->id,
-            'img' => $request->img, 
+        $image = $request->file('image');
+
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
+        // //store image to disk
+        // $path = $image->store('images', 'public');
+
+        //convert image to base64
+        $base64Image = base64_encode(Image::make($image)->encode('jpeg'));
+
+        //save image to database
+        $picture = Picture::create([
+            'user_id' => $user->id,
+            'img' => $base64Image, 
+        ]);
+        
         return response()->json([
             'status' => 'success',
-            'message' => 'picture added',
-            'users' => $users,
+            'message' => 'Image uploaded and converted to base64',
+            'base64Image' => $base64Image,
         ]);
     }
 
