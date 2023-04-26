@@ -1,12 +1,23 @@
-import {Routes, Route} from "react-router-dom"
+import {Routes, Route, useRoutes} from "react-router-dom"
+import LoginPage from "./components/login_page/index"
+import SearchPage from "./pages/search_page";
+
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/"/>
+        <Route path="/login" element={ <LoginPage /> }/>
+        <Route path="/" element={ <SearchPage/> }/>
       </Routes>
+
     </>
   );
+      
+  //     let routes = useRoutes([
+  //       {path:"/login", element: <LoginPage />},
+  //       {path:"/", element: <SearchPage />}
+  //     ]);
+  // return routes;
 }
 
 export default App;
