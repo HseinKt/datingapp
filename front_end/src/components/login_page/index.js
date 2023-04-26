@@ -1,8 +1,49 @@
+import { useState } from "react";
+
 const LoginPage = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    
+    const handleSubmit = async(e)=> {
+        e.preventDefault(); 
+    }
+
+
     return ( 
-        <>
-            login 
-        </>
+        <div className="lgn-container">
+            <div className="box-container">
+                <h1>Login</h1>
+                <form onSubmit={handleSubmit} className="form-text">
+                    <div className="input-container">
+                        <label htmlFor="email">Email : </label>
+                        <input 
+                            type="text" 
+                            id="email" 
+                            placeholder="Email address" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)} 
+                        />
+                    </div> 
+                    <div className="input-container">
+                        <label htmlFor="password">Password : </label>
+                        <input 
+                            type="text" 
+                            id="password" 
+                            placeholder="Password" 
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)} 
+                        />                    
+                    </div> 
+                    <div className="input-container">
+                        <a href="#">Forget password?</a>
+                    </div>
+                    <button type="submit" className="btn-container" id="btn-container" >Login</button>
+                    <div className="register-link">
+                         <a href="/register">does't have an account</a>
+                    </div>
+                </form>
+            </div>
+        </div>
      );
 }
  
