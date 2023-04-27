@@ -1,7 +1,10 @@
+import Header from "../../components/search_page/header";
+
 const SearchPage = () => {
     return ( 
         <div>
-            Search Page
+            <Header />
+            Search page
         </div>
      );
 }
