@@ -8,6 +8,7 @@ const RegisterPage = () => {
     
     const handleSubmit = async(e)=> {
         e.preventDefault(); 
+        console.log(email +" " + password + " " + repeat_password + " " + name);
     }
 
     return ( 

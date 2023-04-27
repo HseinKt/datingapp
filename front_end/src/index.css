@@ -32,6 +32,10 @@ a {
   color: var(--blue);
 }
 
+a:hover {
+  color: #2416f3;
+}
+
 /* Login page */
 .lgn-container{
   display: flex;
@@ -83,6 +87,18 @@ a {
   border: 2px solid var(--blue);
 }
 
+.btn-container:hover {
+  background-color: #0077d8 ;
+  border-radius: 15px;
+}
 .register-link {
   font-size: small;
+}
+
+/* not-found */
+.not-found {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 100px;
 }
