@@ -148,6 +148,25 @@ a:hover {
   border: 0px;
 }
 
+/* Search input */
+.searchBar {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2%;
+}
+.searchInput {
+  width: 50%;
+  padding: 10px;
+  border-radius: 10%;
+  text-align: center;
+  margin-top: 1%;
+  background-image: url('../src/components/images/search.png');
+  background-position: 10px 12px;
+  background-position: left ;
+  background-repeat: no-repeat;
+  background-size: 50px 50px; /* adjust the size of the icon */
+}
+
 @media only screen and (max-width: 608px) {
   .logo{
     width: 60px;
