@@ -21,7 +21,7 @@ const SearchPage = () => {
             <Header />
             <SearchInput value={value} handleChange={handleChange} handleSubmit={handleSubmit}/>
             <Dropdown />
-            Search page
+            Search page iiiiiiiiiiiiiiiiiiiiiiiiiiii
         </div>
      );
 }

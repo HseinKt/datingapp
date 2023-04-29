@@ -1,8 +1,8 @@
 const Dropdown = () => {
     return ( 
-        <div className="dropDown">
+        <div className="dropdown">
             <button className="dropbtn">Search by ...</button>
-            <div className="dropDown-content">
+            <div className="dropdown-content">
                 <p id="name">Name</p>
                 <p id="age">Age</p>
                 <p id="location">Location</p>
