@@ -102,6 +102,15 @@ a:hover {
 /* Header */
 .logo {
   width: 80px;
+  animation: colorTransition 2s ease infinite alternate;
+}
+@keyframes colorTransition {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(100deg);
+  }
 }
 
 .header-container {
