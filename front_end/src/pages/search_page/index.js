@@ -2,6 +2,7 @@ import Header from "../../components/search_page/header";
 import SearchInput from "../../components/search_page/search_input";
 import { useState } from "react";
 import Dropdown from "../../components/search_page/dropdown";
+import Users from "../../components/search_page/users";
 
 
 const SearchPage = () => {
@@ -27,8 +28,7 @@ const SearchPage = () => {
                     <SearchInput value={value} handleChange={handleChange} handleSubmit={handleSubmit} />
                 </div>
             </div>
-           
-            Search page iiiiiiiiiiiiiiiiiiiiiiiiiiii
+           <Users />
         </div>
      );
 }
