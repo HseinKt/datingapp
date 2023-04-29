@@ -1,8 +1,7 @@
-
 const SearchInput = (props) => {
 
     return ( 
-        <div>
+        <div >
             <form onSubmit={props.handleSubmit} className="searchBar">
                 <input 
                     type="text"

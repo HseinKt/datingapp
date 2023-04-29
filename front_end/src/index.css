@@ -147,7 +147,7 @@ a:hover {
 }
 .login:hover {
   color: black;
-  background-color: var(--light_blue);
+  background-color: var(--orange);
 }
 .register:hover {
   color: var(--light_blue);
@@ -156,6 +156,18 @@ a:hover {
 .login:active,
 .register:active {
   border: 0px;
+}
+
+/* Search */
+.search-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 30px;
+  margin-bottom: 30px;
+}
+.search {
+  width: 900px;
 }
 
 /* Search input */
@@ -188,7 +200,8 @@ a:hover {
   padding-left: 1%;
   padding-right: 1%;
   width: 100px;
-  height: 30px;
+  height: 35px;
+  margin-top: 12%;
 }
 .dropdown {
   position: relative;

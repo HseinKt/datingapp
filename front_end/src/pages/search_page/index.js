@@ -19,8 +19,15 @@ const SearchPage = () => {
     return ( 
         <div>
             <Header />
-            <SearchInput value={value} handleChange={handleChange} handleSubmit={handleSubmit}/>
-            <Dropdown />
+            <div className="search-container">
+                <div className="search-dropdown">
+                    <Dropdown />
+                </div>
+                <div className="search">
+                    <SearchInput value={value} handleChange={handleChange} handleSubmit={handleSubmit} />
+                </div>
+            </div>
+           
             Search page iiiiiiiiiiiiiiiiiiiiiiiiiiii
         </div>
      );
