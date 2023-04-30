@@ -128,7 +128,6 @@ a:hover {
 }
 
 /* login and register button */
-
 .header-container .lgn-reg {
   display: flex;
   flex-direction: row;
@@ -145,7 +144,6 @@ a:hover {
   font-size: 15px;
   height: 40%;
   cursor: pointer;
-
 }
 .login:hover {
   color: black;
@@ -231,7 +229,7 @@ a:hover {
   background-color: var(--orange);
 }
 
-/* Card users */
+/* Card */
 .cards {
   display: flex;
   flex-direction: row;
@@ -319,28 +317,38 @@ a:hover {
   color: black;
 }
 
-
-
-
-
-
-
-
-
-@media only screen and (max-width: 608px) {
-  .logo{
-    width: 60px;
-  }
-  .header-container .title {
-    font-size: smaller;
-  }
+/* Message Page */
+/* Chat */
+.formText {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  padding-bottom: 1.5%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
-
-@media only screen and (max-width: 500px) {
-  .logo{
-    width: 50px;
-  }
-  .header-container .title {
-    font-size: x-small;
-  }
+.inputText {
+  width: 50%;
+  height: 40px;
+  border-radius: 50px;
+  border: 1px solid #030303;
+  text-align: center;
+}
+.sendButton {
+  width: 20%;
+  height: 20px;
+  padding: 2px;
+  border-radius: 100%;
+  font-size: 15px;
+  cursor: pointer;
+}
+.sendButton:hover {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+  color: #030303;
+}
+.send {
+  margin-left: 10px;
 }
