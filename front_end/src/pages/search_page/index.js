@@ -30,6 +30,7 @@ const SearchPage = () => {
             </div>
             <div className="cards">
                 <Cards />
+                <Cards /><Cards />
             </div>
         </div>
      );

@@ -144,6 +144,8 @@ a:hover {
   border-radius: 10px;
   font-size: 15px;
   height: 40%;
+  cursor: pointer;
+
 }
 .login:hover {
   color: black;
@@ -271,10 +273,10 @@ a:hover {
   margin-bottom: 3%;
   margin-left: 7%;
 }
+/* buttons in the card */
 .card-buttons {
   display: flex;
   flex-direction: row;
-  /* justify-content: space-around; */
   padding-left: 13%;
   padding-bottom: 5%;
 }
@@ -282,10 +284,43 @@ a:hover {
   display: flex;
   flex-direction: row;
   padding-right: 10px;
+  padding-top: 25px;
 }
 .messagebtn {
-  margin-left: 45px;
+  margin-left: 4px;
+  padding-top: 0px;
 }
+.sendbtn {
+  height: 60%;
+}
+.sendbtn:hover{
+  color: var(--light_blue);
+  background-color: var(--dark_blue);
+} 
+.love-card {
+  width: 40px;
+  height: 40px;
+  filter: saturate(0.2) brightness(3);
+  margin-top: 10%;
+  cursor: pointer;
+}
+.love-card:hover {
+  filter: hue-rotate(500deg);
+}
+.block {
+  background-color: black;
+  color: white;
+  width: 46px;
+  height: 40px;
+  margin-top: 10%;
+}
+.block:hover {
+  background-color: whitesmoke;
+  color: black;
+}
+
+
+
 
 
 

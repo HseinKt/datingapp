@@ -1,4 +1,5 @@
 import card from "../../images/card.jpg"
+import logo from "../../images/logo2.png"
 
 const Cards = () => {
     const handleSubmit = (e) => {
@@ -23,11 +24,13 @@ const Cards = () => {
                 </div>
                 <div className="card-buttons">
                     <div className="love-block">
-                        <button className="love">love</button>
-                        <button className="block">block</button>
+                        <img src={logo} alt="love" className="love-card" />
+                        <button className="block btn">
+                            block
+                        </button>
                     </div>
                     <div className="messagebtn">
-                        <button className="sendbtn" onClick={handleSubmit}>
+                        <button className="sendbtn btn" onClick={handleSubmit}>
                             send a message
                         </button>
                     </div> 
