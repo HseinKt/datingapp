@@ -1,6 +1,6 @@
 import card from "../../images/card.jpg"
 
-const Users = () => {
+const Cards = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     }
@@ -8,7 +8,7 @@ const Users = () => {
         <div className="user-container">
             <div className="card-container">
                 <div className="image-container">
-                    <img src={card} alt="card Image" />
+                    <img src={card} alt="card" className="card-image"/>
                 </div>
                 <div className="details">
                     <h4 className="name">
@@ -26,13 +26,15 @@ const Users = () => {
                         <button className="love">love</button>
                         <button className="block">block</button>
                     </div>
-                    <button className="messagebtn" onClick={handleSubmit}>
-                        send a message
-                    </button>
-                </div> 
+                    <div className="messagebtn">
+                        <button className="sendbtn" onClick={handleSubmit}>
+                            send a message
+                        </button>
+                    </div> 
+                </div>
             </div>
         </div>
      );
 }
  
-export default Users;
+export default Cards;

@@ -2,7 +2,7 @@ import Header from "../../components/search_page/header";
 import SearchInput from "../../components/search_page/search_input";
 import { useState } from "react";
 import Dropdown from "../../components/search_page/dropdown";
-import Users from "../../components/search_page/users";
+import Cards from "../../components/search_page/card";
 
 
 const SearchPage = () => {
@@ -28,7 +28,9 @@ const SearchPage = () => {
                     <SearchInput value={value} handleChange={handleChange} handleSubmit={handleSubmit} />
                 </div>
             </div>
-           <Users />
+            <div className="cards">
+                <Cards />
+            </div>
         </div>
      );
 }
