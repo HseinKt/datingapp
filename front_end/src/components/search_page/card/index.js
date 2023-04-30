@@ -1,9 +1,13 @@
+import { useNavigate } from "react-router-dom"
 import card from "../../images/card.jpg"
 import logo from "../../images/logo2.png"
 
 const Cards = () => {
+    const navigate  = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        navigate("/message")
     }
     return ( 
         <div className="user-container">

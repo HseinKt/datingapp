@@ -3,12 +3,14 @@ import logo from "../../images/logo2.png"
 
 const Header = () => {
     const navigate = useNavigate();
-
+    const handleChange = () => {
+        navigate("/")
+    }
     return ( 
         <div>
             <div className="header-container">
                 <div className="logo">
-                    <img src={logo} alt="logo" className="logo"/>
+                    <img src={logo} alt="logo" className="logo" onClick={handleChange}/>
                 </div>  
                 <div className="title">
                     <h1>Dating <span className="titleApp">App</span></h1>
