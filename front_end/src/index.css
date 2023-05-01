@@ -422,6 +422,9 @@ a:hover {
   background-color: var(--dark_blue);
 }
 .profile-details .name {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   color: white;
   font-family: serif;
 }
@@ -466,6 +469,12 @@ a:hover {
   background-color: var(--dark_blue);
   color: white;
   border-radius: 0px;
+}
+.edit {
+  padding: 1%;
+  margin: 1%;
+  margin-right: 2%;
+  margin-top: 0px;
 }
 
 /* Search page */
