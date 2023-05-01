@@ -19,12 +19,6 @@ const Cards = () => {
                     <h4 className="name">
                         <b>Name</b>
                     </h4>
-                    {/* <h4 className="age">
-                        <p>Age</p>
-                    </h4>
-                    <h5 className="location">
-                        <i>Location</i>
-                    </h5> */}
                 </div>
                 <div className="card-buttons">
                     <div className="love-block">

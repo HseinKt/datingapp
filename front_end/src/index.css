@@ -445,7 +445,7 @@ a:hover {
 .profile-details .about p {
   color: white;
   font-size: 15px;
-  font-weight: 100;
+  font-weight: 500;
   padding-bottom: 3%;
 }
 .profile-buttons {
@@ -466,4 +466,54 @@ a:hover {
   background-color: var(--dark_blue);
   color: white;
   border-radius: 0px;
+}
+
+/* Search page */
+@media only screen and (max-width: 500px) {
+  .logo {
+    width: 60px;
+  }
+  .header-container .title {
+    font-size: small;
+    margin-top: 1%;
+  }
+  .searchInput {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .logo {
+    width: 40px;
+    margin-top: 2%;
+  }
+  .header-container .title {
+    font-size: x-small;
+    margin-top: 2%;
+  }
+  .searchInput {
+    background-image: none;
+  }
+}
+
+/* Profile and Message page*/
+@media only screen and (max-width:674px) {
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile-img img{
+    width: 100%;
+    margin: 5%;
+    padding-right: 10%;
+  }
+  .profile-buttons {
+    padding-right: 10%;
+  }
+  .ChatBox {
+    width: 100%;
+    margin: 0px;
+    margin-top: 5%;
+  }
 }
