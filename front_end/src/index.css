@@ -102,6 +102,7 @@ a:hover {
 /* Header */
 .logo {
   width: 80px;
+  cursor: pointer;
   animation: colorTransition 2s ease infinite alternate;
 }
 @keyframes colorTransition {
@@ -262,6 +263,7 @@ a:hover {
   height: 90%;
   width: 80%;
   padding-right: 5%;
+  cursor: pointer;
 }
 .details {
   display: flex;

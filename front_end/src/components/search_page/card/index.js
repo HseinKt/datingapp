@@ -13,7 +13,7 @@ const Cards = () => {
         <div className="user-container">
             <div className="card-container">
                 <div className="image-container">
-                    <img src={card} alt="card" className="card-image"/>
+                    <img src={card} alt="card" className="card-image" onClick={()=>navigate("/profile")}/>
                 </div>
                 <div className="details">
                     <h4 className="name">
