@@ -1,6 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import card from "../images/card.jpg"
+import logo from "../images/logo2.png"
 
 const Profile = (props) => {
+    const navigate = useNavigate();
+
     return ( 
         <div className="profile-box">
             <div className="profile-container">
@@ -13,7 +17,7 @@ const Profile = (props) => {
                     </div>
                     <div className="line"></div>
                     <div className="location">
-                        <h3>{props.address} {props.city}, {props.state}</h3>
+                        <p>{props.address} {props.city}, {props.state}</p>
                     </div>
                     <div className="age">
                         {props.age} years old {props.gender}
@@ -24,11 +28,17 @@ const Profile = (props) => {
                             {props.about}                        
                         </p>
                     </div>
-                    <div className="messagebtn">
-                        <button className="sendbtn " onClick={props.handleSubmit}>
-                            send a message
-                        </button>
-                    </div> 
+                    <div className="card-buttons profile-buttons">
+                        <div className="love-block">
+                            <img src={logo} alt="love" className="love-card" />
+                            <button className="block btn">
+                                block
+                            </button>
+                            <button className="sendbtn btn message-btn" onClick={() => navigate("/message")}>
+                                Message
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -403,3 +403,67 @@ a:hover {
   margin-right: 20%;
   overflow: scroll;
 }
+
+/* Profile Page */
+.profile-box {
+  border-radius: 3px;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
+  margin: 3%;
+}
+.profile-container {
+  display: flex;
+  flex-direction: row;
+}
+.profile-img img{
+  width: 400px;
+}
+.profile-details {
+  padding: 2%;
+  background-color: var(--dark_blue);
+}
+.profile-details .name {
+  color: white;
+  font-family: serif;
+}
+.profile-details .line {
+  width: 100%;
+  border-bottom: 1px solid gray ;
+  padding-top: 1%;
+}
+.profile-details .location {
+  color: #ced2d4;
+  font-size: 20px;
+  font-weight: 500;
+  padding-bottom: 1%;
+}
+.profile-details .age {
+  color: #ced2d4;
+  font-size: 15px;
+  font-weight: 700;
+  padding-bottom: 3%;
+}
+.profile-details .about p {
+  color: white;
+  font-size: 15px;
+  font-weight: 100;
+  padding-bottom: 3%;
+}
+.profile-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 5%;
+}
+.message-btn {
+  background-color: #f1f1f1;
+  color: var(--dark_blue);
+  border-radius: 2px;
+  margin-top: 10%;
+  margin-left: 10%;
+  height: 40px;
+}
+.message-btn:hover {
+  background-color: var(--dark_blue);
+  color: white;
+  border-radius: 0px;
+}
