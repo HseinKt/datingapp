@@ -505,7 +505,7 @@ a:hover {
 .edit-input-container label {
   padding-bottom: 1%;
 }
-.edit-input-container input {
+.edit-input-container .edit-input {
   border-radius: 3px;
   border: 1px solid gray;
   padding: 1%;
@@ -565,6 +565,16 @@ a:hover {
   }
   .searchInput {
     width: 70%;
+  }
+  .edit-container {
+    flex-direction: column;
+  }
+  .edit-input-container .edit-input {
+    padding-right: 0px;
+    margin-right: 60px;
+  }
+  .textarea, .edit-btn{
+    margin-right: 60px;
   }
 }
 
