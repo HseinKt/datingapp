@@ -477,7 +477,84 @@ a:hover {
   margin-top: 0px;
 }
 
-/* Search page */
+/* Edit profile page */
+.edit-container {
+  display: flex;
+  flex-direction: row;
+  padding-left: 4%;
+  padding-top: 4%;
+}
+.edit-box-container {
+  display: flex;
+  flex-direction: column;
+}
+.edit-box-container h3 {
+  margin-bottom: 6%;
+}
+.edit-form-text {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20%;
+}
+.edit-input-container {
+  display: flex;
+  flex-direction: column;
+  font-family: serif;
+  padding-bottom: 2%;
+}
+.edit-input-container label {
+  padding-bottom: 1%;
+}
+.edit-input-container input {
+  border-radius: 3px;
+  border: 1px solid gray;
+  padding: 1%;
+  padding-right: 400px;
+}
+/* image */
+.edit-image {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1%;
+  padding-right: 4%;
+}
+.image-preview-container {
+  cursor: pointer;
+  width: fit-content;
+}
+.image-preview {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.image-placeholder {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  background-color: #eee;
+}
+.edit-image input {
+  border-radius: 10%;
+  padding: 1%;
+  padding-top: 5%;
+  cursor: pointer;
+}
+.textarea {
+  width: auto;
+  height: 100px;
+}
+.edit-btn {
+  margin-top: 4%;
+  font-weight: 1000;
+  padding: 2%;
+}
+.edit-btn:hover {
+  background-color: var(--dark_blue);
+  box-shadow: 0 15px 15px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Search page media */
 @media only screen and (max-width: 500px) {
   .logo {
     width: 60px;
@@ -505,7 +582,7 @@ a:hover {
   }
 }
 
-/* Profile and Message page*/
+/* Profile and Message page media*/
 @media only screen and (max-width:674px) {
   .profile-container {
     display: flex;
@@ -525,71 +602,4 @@ a:hover {
     margin: 0px;
     margin-top: 5%;
   }
-}
-
-/* Edit profile page */
-.edit-container {
-  display: flex;
-  flex-direction: row;
-  padding-left: 4%;
-  padding-top: 4%;
-}
-.edit-box-container {
-  display: flex;
-  flex-direction: column;
-}
-.edit-box-container h3 {
-  margin-bottom: 6%;
-}
-.edit-form-text {
-  display: flex;
-  flex-direction: column;
-}
-.edit-input-container {
-  display: flex;
-  flex-direction: column;
-  font-family: serif;
-  padding-bottom: 2%;
-}
-.edit-input-container label {
-  padding-bottom: 1%;
-}
-.edit-input-container input {
-  border-radius: 3px;
-  border: 1px solid gray;
-  padding: 1%;
-  padding-right: 400px;
-}
-/* image */
-.edit-image {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 1%;
-  padding-right: 4%;
-}
-/* .edit-image .edit-title {
-  padding-bottom: 10%;
-  font-weight: 600;
-} */
-.image-preview-container {
-  cursor: pointer;
-  width: fit-content;
-}
-.image-preview {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-.image-placeholder {
-  width: 200px;
-  height: 200px;
-  border-radius: 100%;
-  background-color: #eee;
-}
-.edit-image input {
-  border-radius: 10%;
-  padding: 1%;
-  padding-top: 5%;
-  cursor: pointer;
 }

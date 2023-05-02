@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import UploadImage from "./upload-image";
+import EditForm from "./edit-form";
 
 const EditProfile = () => {
     const navigate  = useNavigate();
@@ -15,7 +16,6 @@ const EditProfile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate("/message")
     }
 
     const handleImageChange = (e) => {
@@ -33,37 +33,48 @@ const EditProfile = () => {
     
     return ( 
         <div className="edit-container">
-            
+
             <UploadImage previewImage={previewImage}  handleImageChange={handleImageChange}/>
 
             <div className="edit-box-container">
                 <h3>Edit Your Profile</h3>
-                <form  className="edit-form-text">
+                <form onSubmit={handleSubmit} className="edit-form-text" >
                     <div className="edit-input-container">
                         <label htmlFor="name">Name</label>
-                        <input 
-                            type="text" 
-                            id="name" 
-                            className="edit-input"
-                            placeholder="Name" 
-                            value={name}
-                            onChange={(e) => setName(e.target.value)} 
-                        />
+                        <EditForm value={name} id="name" placeholder={"Name"} handleValue={(e) => setName(e.target.value)}/>
                     </div> 
                     <div className="edit-input-container">
                         <label htmlFor="age">Age</label>
-                        <input 
-                            type="text" 
-                            id="age" 
-                            className="edit-input"
-                            placeholder="Age" 
-                            value={age}
-                            onChange={(e) => setAge(e.target.value)} 
-                        />                    
+                        <EditForm value={age} id="age" placeholder={"Age"} handleValue={(e) => setAge(e.target.value)}/> 
                     </div> 
-                    
-                    <button type="submit" className="" id="btn-container" >Save</button>
-                    {/* btn-container edit-input-container */}
+                    <div className="edit-input-container">
+                        <label htmlFor="gender">Gender</label>
+                        <EditForm value={gender} id="gender" placeholder={"Gender"} handleValue={(e) => setGender(e.target.value)}/> 
+                    </div> 
+                    <div className="edit-input-container">
+                        <label htmlFor="address">Address</label>
+                        <EditForm value={address} id="address" placeholder={"Address"} handleValue={(e) => setAddress(e.target.value)}/> 
+                    </div> 
+                    <div className="edit-input-container">
+                        <label htmlFor="city">City</label>
+                        <EditForm value={city} id="city" placeholder={"City"} handleValue={(e) => setCity(e.target.value)}/> 
+                    </div> 
+                    <div className="edit-input-container">
+                        <label htmlFor="state">State</label>
+                        <EditForm value={state} id="state" placeholder={"State"} handleValue={(e) => setState(e.target.value)}/> 
+                    </div> 
+                    <div className="edit-input-container">
+                        <label htmlFor="about">About</label>
+                        <textarea 
+                            type="text" 
+                            id="about" 
+                            className="textarea"
+                            placeholder="about" 
+                            value={about}
+                            onChange={(e) => setAbout(e.target.value)} 
+                        />
+                    </div> 
+                    <button type="submit" className="btn edit-btn" id="btn-container" >Save</button>
                 </form>
             </div>
         </div>
