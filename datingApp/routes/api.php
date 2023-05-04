@@ -27,6 +27,7 @@ Route::group(["prefix" => "v0.0.1"], function(){
 
     Route::group(['middleware' => 'auth:api'], function(){
         Route::post('/edit_profile', [AuthController::class, "editProfile"]);
+        Route::get('/get_profile', [AuthController::class, "getProfileDetails"]);
         Route::get('/get_all_users', [AuthController::class, "getAllUsers"]);
         Route::post('/get_user_by_age', [AuthController::class, "getUserbyAge"]);
         Route::post('/set_location', [AuthController::class,"setLocation"]);

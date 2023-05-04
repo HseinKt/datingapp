@@ -101,10 +101,11 @@ class AuthController extends Controller
         ]);
     }
 
-    public function editProfile(Request $request) {
-
+    public function editProfile(Request $request) 
+    {
         $user = Auth::user();
-        if($user) {
+        if($user) 
+        {
             $users = User::updateOrCreate(
                 ['id' => $user->id],
                 ['name' => $request->name]
@@ -125,7 +126,7 @@ class AuthController extends Controller
                 'status' => 'Success',
                 'message' => 'your profile was updated successfully',
                 'name' => $user->name,
-                'user name' => $users->name,
+                'user_name' => $users->name,
                 'profile' => $profile,
                 'location' => $location,
                 'image' => $image,
@@ -134,6 +135,46 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'Error',
                 'message' => 'Unauthorized',
+            ], 401);
+        }
+    }
+
+    public function getProfileDetails(Request $request) 
+    {
+        $user = Auth::user();
+        if($user){
+            $name = $user->name;
+            $profile = Profile::where('user_id',$user->id)->first();
+            if ($profile) {
+                $age = $profile->age;
+                $description = $profile->description;
+                $gender = $profile->gender;
+            }
+            $location = Location::where('user_id',$user->id)->first();
+            if($location) {
+                $address = $location->address;
+                $city = $location->city;
+                $state = $location->state;
+            }
+            $image = Picture::where('user_id',$user->id)->first();
+            if($image) {
+                $img = $image->img;
+            }
+            return response()->json([
+                'status' => 'Success',
+                'name' => $name,
+                'age' => $age,
+                'description' => $description,
+                'gender' => $gender,
+                'address' => $address,
+                'city' => $city,
+                'state' => $state,
+                'image' => $img
+            ], 200);
+        }else {
+            return response()->json([
+                'status' => 'Rrror',
+                'message' => 'Unauthorization'
             ], 401);
         }
     }
