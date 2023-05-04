@@ -17,14 +17,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => [
-            'login','register'
-            // ,'EditProfile',
-            // 'getAllUsers','getUserbyAge','setLocation',
-            // 'getUserbyLocation','getUserbyName','addImage',
-            // 'addFavorite','removeFavoriteOrBlock', 'addBlock',
-            // 'sendMessage','getMessages'
-            ]]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
     public function login(Request $request)
@@ -182,7 +175,7 @@ class AuthController extends Controller
             'status' => 'success',
             'message' => 'user founded',
             'users' => $users,
-        ]);
+        ], 200);
     }
 
     public function getUserbyAge(Request $request)
@@ -193,13 +186,13 @@ class AuthController extends Controller
             'status' => 'success',
             'message' => 'user founded',
             'users' => $users,
-        ]);
+        ], 200);
     }
 
     public function setLocation(Request $request) 
     {
         $user = Auth::user();
-        $users = Location::updateOrCreate(
+        $location = Location::updateOrCreate(
             ['user_id' => $user->id],
             ['address' => $request->address, 'city' => $request->city,'state' => $request->state],
         );
@@ -207,8 +200,8 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'user founded',
-            'users' => $users,
-        ]);
+            'location' => $location,
+        ], 200);
     }
 
     public function getUserbyLocation(Request $request) 
@@ -220,7 +213,7 @@ class AuthController extends Controller
             'message' => 'user founded',
             'city' => $city,
             'users' => $users,
-        ]);
+        ], 200);
     }
 
     public function getUserbyName(Request $request)
@@ -231,7 +224,7 @@ class AuthController extends Controller
             'status' => 'success',
             'message' => 'user founded',
             'users' => $users,
-        ]);
+        ], 200);
     }
 
     public function addImage(Request $request) 
@@ -256,7 +249,7 @@ class AuthController extends Controller
             'status' => 'success',
             'message' => 'Image uploaded and saved to database',
             'base64Image' => $base64Image,
-        ]);
+        ], 200);
     }
 
     public function addFavorite(Request $request) 
@@ -279,7 +272,7 @@ class AuthController extends Controller
 
             if( $check1 == 0 && $check2 ==0)
             {
-                $users = Favorite::updateOrCreate(
+                $favorite = Favorite::updateOrCreate(
                     ['active' => 1, 'source_id' => $source_id, 'dest_id' => $dest_id],
                     ['active' => $active],
                 );
@@ -287,15 +280,15 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'added user favorite',
-                'users' => $users,
-            ]);
+                'favorite' => $favorite,
+            ], 200);
         }
         else 
         {
             return response()->json([
                 'status' => 'error',
                 'message' => 'this is the same user',
-            ]);
+            ], 401);
         }
     }
     
@@ -306,19 +299,19 @@ class AuthController extends Controller
         $source_id = $user->id;
         $dest_id  = $request->dest_id;
 
-        $users = Favorite::where('active',1)
+        $favorite = Favorite::where('active',1)
                             ->where('source_id',$source_id)
                             ->where('dest_id',$dest_id)
                             ->update(['active' => $active]);
-        $users = Favorite::where('active',2)
+        $favorite = Favorite::where('active',2)
                             ->where('source_id',$source_id)
                             ->where('dest_id',$dest_id)
                             ->update(['active' => $active]);
         return response()->json([
                 'status' => 'success',
                 'message' => 'removed user favorite',
-                'users' => $users,
-        ]);
+                'favorite' => $favorite,
+        ], 200);
     }
 
     public function addBlock(Request $request) 
@@ -341,7 +334,7 @@ class AuthController extends Controller
                             ->update(['active' => $active]);
             if( $check1 == 0 && $check2 ==0)
             {
-                $users = Favorite::updateOrCreate(
+                $block = Favorite::updateOrCreate(
                     ['active' => 2, 'source_id' => $source_id, 'dest_id' => $dest_id],
                     ['active' => $active],
                 );
@@ -349,27 +342,29 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'added user block',
-                'users' => $users,
-            ]);
+                'block' => $block,
+            ], 200);
         }
         else 
         {
             return response()->json([
                 'status' => 'error',
                 'message' => 'this is the same user',
-            ]);
+            ], 401);
         }
     }
-    
+
     public function sendMessage(Request $request) 
     {
         $user = Auth::user();
         $source_id = $user->id;
         $dest_id  = $request->receiver_id;
+        $sender_name = $user->name;
+        $receiver_name = User::where('id',$dest_id)->value('name');
 
         if ($source_id != $dest_id) 
         {
-            $users = Message::create([
+            $message = Message::create([
                 'body' => $request->body,
                 'sender_id' => $source_id,
                 'receiver_id' => $dest_id,
@@ -378,30 +373,39 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'added user favorite',
-                'users' => $users,
-            ]);
+                'sender_name' => $sender_name,
+                'receiver_name' => $receiver_name,
+                'user_message' => $message
+            ], 200);
         }
         else 
         {
             return response()->json([
                 'status' => 'error',
                 'message' => 'this is the same user',
-            ]);
+            ], 401);
         }
     }
 
     public function getMessages(Request $request)
     {
         $user = Auth::user();
-        $name = User::where('id',$user->id)->first();
-        $users = Message::where('sender_id',$user->id)->get();
-        
+        $source_id = $user->id;
+        $dest_id  = $request->receiver_id;
+        $sender_name = $user->name;
+        $receiver_name = User::where('id',$dest_id)->value('name');
+
+        $message = Message::where('receiver_id',$source_id)
+                            ->where('sender_id',$dest_id)
+                            ->get();
+
         return response()->json([
             'status' => 'success',
             'message' => 'messages founded',
-            'name' => $name,
-            'users' => $users,
-        ]);
+            'sender_name' => $receiver_name,
+            'receiver_name' => $sender_name,
+            'user_message' => $message
+        ], 200);
     }
     
 }
