@@ -101,23 +101,38 @@ class AuthController extends Controller
         ]);
     }
 
-    public function editProfile(Request $request)
-    {
+    public function editProfile(Request $request) {
+
         $user = Auth::user();
-        if ($user) {
-            //$found_user = User::where('id',$user->id)->first();
+        if($user) {
+            $users = User::updateOrCreate(
+                ['id' => $user->id],
+                ['name' => $request->name]
+            );
             $profile = Profile::updateOrCreate(
                 ['user_id' => $user->id],
-                ['description' => $request->description, 'age' => $request->age,'gender' => $request->gender],
+                ['description' => $request->description, 'age' => $request->age, 'gender' => $request->gender]
+            );
+            $location = Location::updateOrCreate(
+                ['user_id' => $user->id],
+                ['address' => $request->address, 'city' => $request->city, 'state' => $request->state]
+            );
+            $image = Picture::updateOrCreate(
+                ['user_id' => $user->id],
+                ['img' => $request->img]
             );
             return response()->json([
-                'status' => 'success',
-                'message' => 'profile updates successfully',
+                'status' => 'Success',
+                'message' => 'your profile was updated successfully',
+                'name' => $user->name,
+                'user name' => $users->name,
                 'profile' => $profile,
-            ]);
+                'location' => $location,
+                'image' => $image,
+            ], 200);
         }else {
             return response()->json([
-                'status' => 'error',
+                'status' => 'Error',
                 'message' => 'Unauthorized',
             ], 401);
         }
