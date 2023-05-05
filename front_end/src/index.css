@@ -158,6 +158,9 @@ a:hover {
 .register:active {
   border: 0px;
 }
+.logout {
+  margin-right: 0%;
+}
 
 /* Search */
 .search-container {
