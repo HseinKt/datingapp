@@ -33,9 +33,7 @@ const RegisterPage = () => {
         const formData = new FormData();
         formData.append('name',name);
         formData.append('email',email);
-        
         formData.append('password',password);
-
         try {
             axios.post("http://localhost:8000/api/v0.0.1/register", formData)
             .then(response => {
