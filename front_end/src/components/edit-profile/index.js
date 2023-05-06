@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadImage from "./upload-image";
 import EditForm from "./edit-form";
 import axios from "axios";
@@ -7,14 +7,46 @@ import axios from "axios";
 const EditProfile = () => {
     const navigate  = useNavigate();
     const [token, setToken] = useState("");
-    const [name, setName] = useState ("Hsein Kteish ");
-    const [age, setAge] = useState ("20 ");
-    const [gender, setGender] = useState ("man ");
-    const [about, setAbout] = useState ("Travel, surprises, music, dancing, sports, books, last minute plans, open mind, photography, museum, craziness, spontaneity, going out (but also staying in), sharing, simplicity, respect, flip flops (yes, the sandals), down to earth (however fantasy is also very important), people, casual, word, news, work, sense of humor about yourself, awareness. ");
-    const [address, setAddress] = useState ("Hamra ");
-    const [city, setCity] = useState ("Beirut ");
-    const [state, setState] = useState ("Lebanon ");
+    const [name, setName] = useState ("");
+    const [age, setAge] = useState ("");
+    const [gender, setGender] = useState ("");
+    const [about, setAbout] = useState ("");
+    const [address, setAddress] = useState ("");
+    const [city, setCity] = useState ("");
+    const [state, setState] = useState ("");
     const [previewImage, setPreviewImage] = useState(null);
+
+    useEffect(() => {
+        const myToken = localStorage.getItem('token');
+        if(!myToken) {
+            navigate("/login");
+        }
+        else {
+            setToken(myToken);
+            try {
+                axios.get("http://localhost:8000/api/v0.0.1/get_profile", {
+                    headers : {
+                        'Authorization' : 'Bearer' + myToken,
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    setName(response.data.name);
+                    setAge(response.data.age);
+                    setGender(response.data.gender);
+                    setAbout(response.data.description);
+                    setAddress(response.data.address);
+                    setCity(response.data.city);
+                    setState(response.data.state);
+                })
+                .catch(err => {
+                    console.log("axios error:" + err.message);
+                })
+            } catch (error) {
+                console.log("Carch Error: " + error);
+            }
+        }
+    }, [])
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -29,11 +61,32 @@ const EditProfile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+        const formData = new FormData();
+        formData.append('name',name);
+        formData.append('age',age);
+        formData.append('gender',gender);
+        formData.append('about',about);
+        formData.append('address',address);
+        formData.append('city',city);
+        formData.append('state',state);
+        try {
+            axios.post("http://localhost:8000/api/v0.0.1/edit_profile", formData, {
+                headers: {
+                    'Authorization' : 'Bearer' + token,
+                }
+            })
+            .then(response => {
+                console.log(response.data);
+                navigate("/profile")
+            })
+            .catch(err => {
+                console.log("axios error:" + err.message);
+            })
+        } catch (error) {
+            console.log("Carch Error: " + error);
+        }
     }
-    
-    // console.log(name);
-    
+        
     return ( 
         <div className="edit-container">
 

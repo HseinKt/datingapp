@@ -127,6 +127,12 @@ const SearchPage = () => {
                 <div className="search">
                     <SearchInput value={value} searchBy={selectedOption} handleChange={handleChange} handleSubmit={handleSubmit} />
                 </div>
+                <div className="search-edit">
+                    <button className="edit sendbtn btn message-btn " onClick={() => navigate("/edit")}>
+                        Edit
+                    </button>
+                </div>
+                
             </div>
             <div className="cards">
                 {results.map((user, index) => (
