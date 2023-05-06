@@ -429,6 +429,7 @@ a:hover {
   width: 400px;
 }
 .profile-details {
+  width: 100%;
   padding: 2%;
   background-color: var(--dark_blue);
 }

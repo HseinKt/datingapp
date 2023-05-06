@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import UploadImage from "./upload-image";
 import EditForm from "./edit-form";
+import axios from "axios";
 
 const EditProfile = () => {
     const navigate  = useNavigate();
+    const [token, setToken] = useState("");
     const [name, setName] = useState ("Hsein Kteish ");
     const [age, setAge] = useState ("20 ");
     const [gender, setGender] = useState ("man ");
@@ -13,10 +15,6 @@ const EditProfile = () => {
     const [city, setCity] = useState ("Beirut ");
     const [state, setState] = useState ("Lebanon ");
     const [previewImage, setPreviewImage] = useState(null);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    }
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -29,7 +27,12 @@ const EditProfile = () => {
         reader.readAsDataURL(file);
     }
 
-    console.log(name);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+    }
+    
+    // console.log(name);
     
     return ( 
         <div className="edit-container">
