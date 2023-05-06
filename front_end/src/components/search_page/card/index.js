@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import card from "../../images/card.jpg"
 import logo from "../../images/logo2.png"
 
-const Cards = () => {
+const Cards = (props) => {
     const navigate  = useNavigate();
 
     const handleSubmit = (e) => {
@@ -17,7 +17,7 @@ const Cards = () => {
                 </div>
                 <div className="details">
                     <h4 className="name">
-                        <b>Name</b>
+                        <b>{props.data.name}</b>
                     </h4>
                 </div>
                 <div className="card-buttons">

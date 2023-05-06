@@ -30,7 +30,7 @@ const LoginPage = () => {
             axios.post("http://localhost:8000/api/v0.0.1/login", formData)
             .then(response => {
                 if(response.data.authorisation){
-                    console.log(response.data);
+                    // console.log(response.data);
                     localStorage.setItem('token', response.data.authorisation.token);
                     navigate("/");
                 }

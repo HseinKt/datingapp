@@ -6,7 +6,8 @@ const SearchInput = (props) => {
                 <input 
                     type="text"
                     className="searchInput" 
-                    placeholder="Search here ..."
+                    placeholder={`Search by ${props.searchBy}`}
+                    
                     value={props.value}
                     onChange={props.handleChange}
                 />

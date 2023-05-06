@@ -37,7 +37,7 @@ const RegisterPage = () => {
         try {
             axios.post("http://localhost:8000/api/v0.0.1/register", formData)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 navigate("/login");
             })
             .catch(error => {
