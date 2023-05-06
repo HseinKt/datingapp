@@ -19,6 +19,12 @@ const Cards = (props) => {
                     <h4 className="name">
                         <b>{props.data.name}</b>
                     </h4>
+                    <h4 className="age">
+                        {props.data.age && <b> {props.data.age} </b>}
+                    </h4>
+                    <h4 className="location">
+                        {props.data.city && <b> {props.data.city} </b>}
+                    </h4>
                 </div>
                 <div className="card-buttons">
                     <div className="love-block">

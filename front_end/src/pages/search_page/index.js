@@ -76,10 +76,44 @@ const SearchPage = () => {
             }
         }
         else if(selectedOption === 'location') {
-            console.log('location selected');
+            const formData = new FormData();
+            formData.append('city', value);
+            try {
+                axios.post('http://localhost:8000/api/v0.0.1/get_user_by_location', formData, {
+                    headers: {
+                        'Authorization' : 'Bearer' + token,
+                    }
+                })
+                .then (response => {
+                    console.log(response.data)
+                    setResults(response.data.users)
+                })
+                .catch (err => {
+                    console.log('Axios Error: ' + err.message);
+                })
+            } catch (error) {
+                console.log('Catch error: ' + error);
+            }
         }
         else {
-            console.log('name selected');
+            const formData = new FormData();
+            formData.append('name', value);
+            try {
+                axios.post('http://localhost:8000/api/v0.0.1/get_user_by_name', formData, {
+                    headers: {
+                        'Authorization' : 'Bearer' + token,
+                    }
+                })
+                .then (response => {
+                    console.log(response.data)
+                    setResults(response.data.users)
+                })
+                .catch (err => {
+                    console.log('Axios Error: ' + err.message);
+                })
+            } catch (error) {
+                console.log('Catch error: ' + error);
+            }
         }
     }
 

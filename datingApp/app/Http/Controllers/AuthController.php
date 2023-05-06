@@ -12,10 +12,8 @@ use App\Models\Picture;
 use App\Models\Favorite;
 use App\Models\Message;
 
-
 class AuthController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login','register']]);
@@ -46,7 +44,6 @@ class AuthController extends Controller
                     'type' => 'bearer',
                 ]
             ]);
-
     }
 
     public function register(Request $request){
@@ -185,7 +182,7 @@ class AuthController extends Controller
         $users = DB::table('users')
                     ->join('profiles', 'profiles.user_id', '=', 'users.id')
                     ->where('profiles.age',$request->age)
-                    ->select('users.name')
+                    ->select('users.name','profiles.age')
                     ->get();
         
         return response()->json([
@@ -212,11 +209,11 @@ class AuthController extends Controller
 
     public function getUserbyLocation(Request $request) 
     {
-        // $users = Location::where('city',$request->city)->get();
+        $city = $request->city;
         $users = DB::table('users')
                     ->join('locations', 'locations.user_id','=', 'users.id')
-                    ->where('locations.city',$request->city)
-                    ->select('users.name')
+                    ->where('locations.city','LIKE',"%$city%")
+                    ->select('users.name', 'locations.city')
                     ->get();
 
         $city = $request->city;
@@ -230,7 +227,8 @@ class AuthController extends Controller
 
     public function getUserbyName(Request $request)
     {
-        $users = User::where('name',$request->name)->get();
+        $name = $request->name;
+        $users = User::where('name','LIKE',"%$name%")->get();
         
         return response()->json([
             'status' => 'success',
@@ -418,6 +416,5 @@ class AuthController extends Controller
             'receiver_name' => $sender_name,
             'user_message' => $message
         ], 200);
-    }
-    
+    }  
 }

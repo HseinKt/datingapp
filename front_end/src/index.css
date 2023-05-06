@@ -276,6 +276,14 @@ a:hover {
   margin-bottom: 3%;
   margin-left: 7%;
 }
+.details .age, .location, .name{
+  font-family: 'Courier New', Courier, monospace;
+  margin-top: 15%;
+}
+.details .name {
+  font-size: large;
+  margin-top: 0%;
+}
 /* buttons in the card */
 .card-buttons {
   display: flex;
@@ -429,7 +437,8 @@ a:hover {
   flex-direction: row;
   justify-content: space-between;
   color: white;
-  font-family: serif;
+  font-family: 'Courier New', Courier, monospace;
+  margin-top: 0%;
 }
 .profile-details .line {
   width: 100%;
@@ -441,12 +450,14 @@ a:hover {
   font-size: 20px;
   font-weight: 500;
   padding-bottom: 1%;
+  margin-top: 0%;
 }
 .profile-details .age {
   color: #ced2d4;
   font-size: 15px;
   font-weight: 700;
   padding-bottom: 3%;
+  margin-top: 0%;
 }
 .profile-details .about p {
   color: white;
