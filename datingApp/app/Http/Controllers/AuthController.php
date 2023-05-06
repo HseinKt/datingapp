@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\Location;
@@ -170,17 +171,25 @@ class AuthController extends Controller
     public function getAllUsers(Request $request)
     {
         $users = User::all();
+        // $names = User::all()->pluck('name');
         
         return response()->json([
             'status' => 'success',
             'message' => 'user founded',
             'users' => $users,
+            // 'names' => $names,
         ], 200);
     }
 
     public function getUserbyAge(Request $request)
     {
-        $users = Profile::where('age',$request->age)->get();
+        $user = Auth::user();
+        // $users = Profile::where('age',$request->age)->get();
+        $users = DB::table('users')
+                    ->join('profiles', 'profiles.user_id', '=', 'users.id')
+                    ->where('profiles.age',$request->age)
+                    ->select('users.name')
+                    ->get();
         
         return response()->json([
             'status' => 'success',

@@ -11,7 +11,8 @@ const SearchPage = () => {
     const [value, setValue] = useState('');
     const [token, setToken] = useState("");
     const [results, setResults] = useState([]);
-    const [selectedOption, setSelectedOption] = useState(null);
+    // const [names, setNames] = useState([]);
+    const [selectedOption, setSelectedOption] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,7 +30,8 @@ const SearchPage = () => {
                 })
                 .then(response => {
                     console.log(response.data);
-                    setResults(response.data.users)
+                    setResults(response.data.users);
+                    // setNames(response.data.names);
                 })
                 .catch (error => {
                     console.log("axios error: " + error);
@@ -40,18 +42,45 @@ const SearchPage = () => {
         }
     }, [])
 
+    const handleOptionClick = (optionId) => {
+        setSelectedOption(optionId);
+        console.log(selectedOption);
+    }
+
     const handleChange = (e)=> {
         e.preventDefault();
         setValue(e.target.value);
+        console.log(e.target.value);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    }
-
-    const handleOptionClick = (optionId) => {
-        setSelectedOption(optionId);
-        console.log(selectedOption);
+        if(selectedOption === 'age') {
+            const formData = new FormData();
+            formData.append('age', value);
+            try {
+                axios.post('http://localhost:8000/api/v0.0.1/get_user_by_age', formData, {
+                    headers: {
+                        'Authorization' : 'Bearer' + token,
+                    }
+                })
+                .then (response => {
+                    console.log(response.data)
+                    setResults(response.data.users)
+                })
+                .catch (err => {
+                    console.log('Axios Error: ' + err.message);
+                })
+            } catch (error) {
+                console.log('Catch error: ' + error);
+            }
+        }
+        else if(selectedOption === 'location') {
+            console.log('location selected');
+        }
+        else {
+            console.log('name selected');
+        }
     }
 
     return ( 
@@ -68,7 +97,7 @@ const SearchPage = () => {
             <div className="cards">
                 {results.map((user, index) => (
                     <div>
-                        <Cards data={user}/>
+                        <Cards data={user} />
                     </div>
                 ))}
             </div>

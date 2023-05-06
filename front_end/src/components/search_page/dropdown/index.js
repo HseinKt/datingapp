@@ -7,7 +7,6 @@ const Dropdown = (props) => {
                 <p id="age" onClick={() => props.handleOptionClick('age')}>Age</p>
                 <p id="location" onClick={() =>props.handleOptionClick('location')}>Location</p>
             </div>
-            {/* {props.selectedOption && <p> Selected: {props.selectedOption}</p>} */}
         </div>
      );
 }
