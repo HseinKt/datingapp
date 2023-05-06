@@ -171,20 +171,17 @@ class AuthController extends Controller
     public function getAllUsers(Request $request)
     {
         $users = User::all();
-        // $names = User::all()->pluck('name');
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'user founded',
             'users' => $users,
-            // 'names' => $names,
         ], 200);
     }
 
     public function getUserbyAge(Request $request)
     {
         $user = Auth::user();
-        // $users = Profile::where('age',$request->age)->get();
         $users = DB::table('users')
                     ->join('profiles', 'profiles.user_id', '=', 'users.id')
                     ->where('profiles.age',$request->age)
@@ -215,7 +212,13 @@ class AuthController extends Controller
 
     public function getUserbyLocation(Request $request) 
     {
-        $users = Location::where('city',$request->city)->get();
+        // $users = Location::where('city',$request->city)->get();
+        $users = DB::table('users')
+                    ->join('locations', 'locations.user_id','=', 'users.id')
+                    ->where('locations.city',$request->city)
+                    ->select('users.name')
+                    ->get();
+
         $city = $request->city;
         return response()->json([
             'status' => 'success',
