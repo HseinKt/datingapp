@@ -127,12 +127,12 @@ class AuthController extends Controller
                 'profile' => $profile,
                 'location' => $location,
                 'image' => $image,
-            ], 200);
+            ], 200, $headers);
         }else {
             return response()->json([
                 'status' => 'Error',
                 'message' => 'Unauthorized',
-            ], 401);
+            ], 401, $headers);
         }
     }
 

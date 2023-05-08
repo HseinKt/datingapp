@@ -27,6 +27,8 @@ const EditProfile = () => {
                 axios.get("http://localhost:8000/api/v0.0.1/get_profile", {
                     headers : {
                         'Authorization' : 'Bearer ' + myToken,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
                     }
                 })
                 .then(response => {
@@ -78,12 +80,13 @@ const EditProfile = () => {
             formData.append('city',city);
             formData.append('state',state);
             formData.append('img',"img");
-            // console.log("formDATA"+formData);
+            // console.log("formDATA"+formData); 
             try {
                 axios.post("http://localhost:8000/api/v0.0.1/edit_profile", formData, {
                     headers : {
                         'Authorization' : 'Bearer ' + token,
                         'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
                     }
                 })
                 .then(response => {

@@ -26,6 +26,8 @@ const ProfilePage = () => {
                 axios.get("http://localhost:8000/api/v0.0.1/get_profile", {
                     headers : {
                         'Authorization' : 'Bearer' + myToken,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
                     }
                 })
                 .then(response => {

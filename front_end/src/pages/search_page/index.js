@@ -11,7 +11,6 @@ const SearchPage = () => {
     const [value, setValue] = useState('');
     const [token, setToken] = useState("");
     const [results, setResults] = useState([]);
-    // const [names, setNames] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
     const navigate = useNavigate();
 
@@ -25,13 +24,14 @@ const SearchPage = () => {
             try {
                 axios.get("http://localhost:8000/api/v0.0.1/get_all_users", {
                     headers : {
-                        'Authorization' : "Bearer " + myToken
+                        'Authorization' : "Bearer " + myToken,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
                     }
                 })
                 .then(response => {
                     console.log(response.data);
                     setResults(response.data.users);
-                    // setNames(response.data.names);
                 })
                 .catch (error => {
                     console.log("axios error: " + error);

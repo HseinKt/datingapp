@@ -18,7 +18,7 @@ use App\Http\Controllers\AuthController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+//, "middleware" => "cors"
 Route::group(["prefix" => "v0.0.1"], function(){
 
     Route::match(['get', 'post'], '/login', [AuthController::class, 'login']);
