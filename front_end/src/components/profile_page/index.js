@@ -14,9 +14,6 @@ const Profile = (props) => {
                 <div className="profile-details">
                     <div className="name">
                         <h1>{props.name}</h1>
-                        {/* <button className="edit sendbtn btn message-btn" onClick={() => navigate("/edit")}>
-                            Edit
-                        </button> */}
                     </div>
                     <div className="line"></div>
                     <div className="location">

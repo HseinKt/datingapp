@@ -97,7 +97,7 @@ class AuthController extends Controller
         $user = Auth::user();
         if($user) 
         {
-            if($request->name == '' || $request->description == '' || $request->age == '' || $request->gender == '' || $request->address == '' || $request->city == '' || $request->state == '' || $request->img == ''){
+            if($request->name == '' || $request->description == '' || $request->age == '' || $request->gender == '' || $request->address == '' || $request->city == '' || $request->state == '' ){
                 return response()->json([
                     'status' => 'please make sure all the data are filled in',
                 ]);
@@ -140,23 +140,32 @@ class AuthController extends Controller
     {
         $user = Auth::user();
         if($user){
-            $profile = Profile::select('profiles.description', 'profiles.age', 'profiles.gender', 'locations.address', 'locations.city', 'locations.state', 'pictures.img')
-                ->join('locations', 'profiles.user_id', '=', 'locations.user_id')
-                ->join('pictures', 'profiles.user_id', '=', 'pictures.user_id')
-                ->where('profiles.user_id', $user->id)
-                ->first();
+            $checkProfile = Profile::where('user_id', $user->id)->get();
+            
+            if($checkProfile->isNotEmpty()){
+                $profile = Profile::select('profiles.description', 'profiles.age', 'profiles.gender', 'locations.address', 'locations.city', 'locations.state', 'pictures.img')
+                    ->join('locations', 'profiles.user_id', '=', 'locations.user_id')
+                    ->join('pictures', 'profiles.user_id', '=', 'pictures.user_id')
+                    ->where('profiles.user_id', $user->id)
+                    ->first();
 
-            return response()->json([
-                'status' => 'Success',
-                'name' => $user->name,
-                'age' => $profile->age,
-                'description' => $profile->description,
-                'gender' => $profile->gender,
-                'address' => $profile->address,
-                'city' => $profile->city,
-                'state' => $profile->state,
-                'image' => $profile->img
-            ], 200);
+                return response()->json([
+                    'status' => 'Success',
+                    'name' => $user->name,
+                    'age' => $profile->age,
+                    'description' => $profile->description,
+                    'gender' => $profile->gender,
+                    'address' => $profile->address,
+                    'city' => $profile->city,
+                    'state' => $profile->state,
+                    'image' => $profile->img
+                ], 200);
+            }else {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'user does not have a profile yet'
+                ], 404);
+            }
         }else {
             return response()->json([
                 'status' => 'Error',

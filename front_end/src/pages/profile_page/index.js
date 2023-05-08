@@ -39,7 +39,11 @@ const ProfilePage = () => {
                     setState(response.data.state);
                 })
                 .catch(err => {
-                    console.log("axios error:" + err.message);
+                    if(err.response.status === 404) {
+                        console.log("user does not have a profile yet.")
+                    } else {
+                        console.log("axios error:" + err.message);
+                    }
                 })
             } catch (error) {
                 console.log("Carch Error: " + error);

@@ -26,7 +26,7 @@ const EditProfile = () => {
             try {
                 axios.get("http://localhost:8000/api/v0.0.1/get_profile", {
                     headers : {
-                        'Authorization' : 'Bearer' + myToken,
+                        'Authorization' : 'Bearer ' + myToken,
                     }
                 })
                 .then(response => {
@@ -40,7 +40,11 @@ const EditProfile = () => {
                     setState(response.data.state);
                 })
                 .catch(err => {
-                    console.log("axios error:" + err.message);
+                    if(err.response.status === 404) {
+                        console.log("user does not have a profile yet.")
+                    } else {
+                        console.log("axios error:" + err.message);
+                    }
                 })
             } catch (error) {
                 console.log("Carch Error: " + error);
@@ -61,29 +65,37 @@ const EditProfile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('name',name);
-        formData.append('age',age);
-        formData.append('gender',gender);
-        formData.append('about',about);
-        formData.append('address',address);
-        formData.append('city',city);
-        formData.append('state',state);
-        try {
-            axios.post("http://localhost:8000/api/v0.0.1/edit_profile", formData, {
-                headers: {
-                    'Authorization' : 'Bearer' + token,
-                }
-            })
-            .then(response => {
-                console.log(response.data);
-                navigate("/profile")
-            })
-            .catch(err => {
-                console.log("axios error:" + err.message);
-            })
-        } catch (error) {
-            console.log("Carch Error: " + error);
+        if(name==="" || age==="" || gender==="" ||about==="" || address==="" || city==="" || state==="") {
+            alert('please make sure all the data are filled in');
+        }
+        else {
+            const formData = new FormData();
+            formData.append('name',name);
+            formData.append('age',age);
+            formData.append('gender',gender);
+            formData.append('about',about);
+            formData.append('address',address);
+            formData.append('city',city);
+            formData.append('state',state);
+            formData.append('img',"img");
+            // console.log("formDATA"+formData);
+            try {
+                axios.post("http://localhost:8000/api/v0.0.1/edit_profile", formData, {
+                    headers : {
+                        'Authorization' : 'Bearer ' + token,
+                        'Content-Type': 'multipart/form-data',
+                    }
+                })
+                .then(response => {
+                    console.log("EDIT PROFILE " + response.data);
+                    // navigate("/profile")
+                })
+                .catch(err => {
+                    console.log("axios error:" + err.message);
+                })
+            } catch (error) {
+                console.log("Carch Error: " + error);
+            }
         }
     }
         
