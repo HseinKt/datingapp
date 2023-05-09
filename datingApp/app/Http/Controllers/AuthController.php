@@ -139,11 +139,15 @@ class AuthController extends Controller
     public function getProfileDetails($user_id) 
     {
         $user = Auth::user();
-        // $user_id = $request->user_id;
-        // $user_id = $user->id;
-        $users = User::where('id', $user_id)->get();
-        $name = $users[0]->name;
-
+        if ($user_id == 0) {
+            $user_id =  $user->id;
+            $users = User::where('id', $user_id)->get();
+            $name = $user->name;
+        } else {
+            $users = User::where('id', $user_id)->get();
+            $name = $users[0]->name;
+        }
+        
         if($user){
             $checkProfile = Profile::where('user_id', $user_id)->get();
             $checkLocation = Location::where('user_id', $user_id)->get();
