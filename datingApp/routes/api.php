@@ -34,9 +34,9 @@ Route::group(["prefix" => "v0.0.1"], function(){
         Route::post('/get_user_by_location', [AuthController::class, "getUserbyLocation"]);
         Route::post('/get_user_by_name', [AuthController::class, "getUserbyName"]);
         Route::post('/add_image', [AuthController::class, "addImage"]);
-        Route::post('/add_favorite', [AuthController::class, "addFavorite"]);
-        Route::post('/remove_favorite_Or_Block', [AuthController::class, "removeFavoriteOrBlock"]);
-        Route::post('/add_block', [AuthController::class, "addBlock"]);
+        Route::post('/add_favorite/{user_id}', [AuthController::class, "addFavorite"]);
+        Route::post('/remove_favorite_Or_Block/{user_id}', [AuthController::class, "removeFavoriteOrBlock"]);
+        Route::post('/add_block/{user_id}', [AuthController::class, "addBlock"]);
         Route::post('/send_message', [AuthController::class, "sendMessage"]);
         Route::post('/get_messages', [AuthController::class, "getMessages"]);
 

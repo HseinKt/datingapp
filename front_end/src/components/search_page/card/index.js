@@ -1,11 +1,24 @@
 import { useNavigate } from "react-router-dom"
 import card from "../../images/card.jpg"
 import logo from "../../images/logo2.png"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Cards = (props) => {
     const navigate  = useNavigate();
+    const [token, setToken] = useState("");
+    const [clicked, setClicked] = useState(false);
+    const [clickedBlock, setClickedBlock] = useState(false);
 
+    useEffect(() => {
+        const myToken = localStorage.getItem('token');
+        if(!myToken) {
+            navigate("/login");
+        }
+        else {
+            setToken(myToken);
+        }
+    })
     const handleSubmit = (e) => {
         e.preventDefault();
         navigate("/message")
@@ -18,11 +31,15 @@ const Cards = (props) => {
         navigate("/profile");
     }
 
-    const [clicked, setClicked] = useState(false);
-    const [clickedBlock, setClickedBlock] = useState(false);
-    
     const handleLove = () => {
         setClicked(!clicked);
+        const { id } = props.data;
+        
+        try {
+            axios.post("/add_favorite")
+        } catch (error) {
+            console.log("Catch error: " + error);
+        }
     } 
     const handleBlock = () => {
         setClickedBlock(!clickedBlock);

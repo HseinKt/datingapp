@@ -282,31 +282,35 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function addFavorite(Request $request) 
+    public function addFavorite($user_id) 
     {
         $user = Auth::user();
         $active = 1;
         $source_id = $user->id;
-        $dest_id  = $request->dest_id ;
+        $dest_id  = $user_id;
 
         if ($source_id != $dest_id) 
         {
-            $check1 = Favorite::where('active',0)
+            $check = Favorite::where('active',0)
                             ->where('source_id',$source_id)
                             ->where('dest_id',$dest_id)
                             ->update(['active' => $active]);
-            $check2 = Favorite::where('active',2)
+            $check = Favorite::where('active',2)
                             ->where('source_id',$source_id)
                             ->where('dest_id',$dest_id)
                             ->update(['active' => $active]);
 
-            if( $check1 == 0 && $check2 ==0)
+            if( $check == 0 )
             {
                 $favorite = Favorite::updateOrCreate(
                     ['active' => 1, 'source_id' => $source_id, 'dest_id' => $dest_id],
                     ['active' => $active],
                 );
             }
+            $favorite = Favorite::where('source_id',$source_id)
+                                ->where('dest_id',$dest_id)
+                                ->get();
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'added user favorite',
@@ -322,21 +326,25 @@ class AuthController extends Controller
         }
     }
     
-    public function removeFavoriteOrBlock(Request $request) 
+    public function removeFavoriteOrBlock($user_id) 
     {
         $user = Auth::user();
         $active = 0;
         $source_id = $user->id;
-        $dest_id  = $request->dest_id;
+        $dest_id  = $user_id;
 
-        $favorite = Favorite::where('active',1)
+        $check = Favorite::where('active',1)
                             ->where('source_id',$source_id)
                             ->where('dest_id',$dest_id)
                             ->update(['active' => $active]);
-        $favorite = Favorite::where('active',2)
+        $check = Favorite::where('active',2)
                             ->where('source_id',$source_id)
                             ->where('dest_id',$dest_id)
                             ->update(['active' => $active]);
+                            
+        $favorite = Favorite::where('source_id',$source_id)
+                            ->where('dest_id',$dest_id)
+                            ->get();
         return response()->json([
                 'status' => 'success',
                 'message' => 'removed user favorite',
@@ -344,35 +352,38 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function addBlock(Request $request) 
+    public function addBlock($user_id) 
     {
         $user = Auth::user();
         $active = 2;
         $source_id = $user->id;
-        $dest_id  = $request->dest_id ;
-        $id = $request->id;
+        $dest_id  = $user_id;
 
         if ($source_id != $dest_id) 
         {
-            $check1 = Favorite::where('active',0)
+            $check = Favorite::where('active',0)
                             ->where('source_id',$source_id)
                             ->where('dest_id',$dest_id)
                             ->update(['active' => $active]);
-            $check2 = Favorite::where('active',1)
+            $check = Favorite::where('active',1)
                             ->where('source_id',$source_id)
                             ->where('dest_id',$dest_id)
                             ->update(['active' => $active]);
-            if( $check1 == 0 && $check2 ==0)
+            if( $check == 0 )
             {
-                $block = Favorite::updateOrCreate(
+                $favorite = Favorite::updateOrCreate(
                     ['active' => 2, 'source_id' => $source_id, 'dest_id' => $dest_id],
                     ['active' => $active],
                 );
             }
+            $favorite = Favorite::where('source_id',$source_id)
+                                ->where('dest_id',$dest_id)
+                                ->get();
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'added user block',
-                'block' => $block,
+                'message' => 'added user favorite',
+                'favorite' => $favorite,
             ], 200);
         }
         else 
