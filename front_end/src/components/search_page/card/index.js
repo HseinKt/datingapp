@@ -11,8 +11,9 @@ const Cards = (props) => {
     }
 
     const handleCard = (e) => {
-        const { id } = props.data;
-        localStorage.setItem('user_id', id)
+        const { id, name } = props.data;
+        localStorage.setItem('user_id', id);
+        localStorage.setItem('user_name', name);
         navigate("/profile");
     }
 
