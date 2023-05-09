@@ -22,8 +22,11 @@ const ProfilePage = () => {
         }
         else {
             setToken(myToken);
+            const user_id = localStorage.getItem('user_id');
+            // const formData = new FormData();
+            // formData.append('user_id', user_id);
             try {
-                axios.get("http://localhost:8000/api/v0.0.1/get_profile", {
+                axios.get(`http://localhost:8000/api/v0.0.1/get_profile/${user_id}`, {
                     headers : {
                         'Authorization' : 'Bearer' + myToken,
                         'Content-Type': 'multipart/form-data',

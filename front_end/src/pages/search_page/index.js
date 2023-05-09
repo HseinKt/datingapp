@@ -117,6 +117,10 @@ const SearchPage = () => {
         }
     }
 
+    const handleEdit = () => {
+        navigate("/edit")
+    }
+
     return ( 
         <div>
             <Header />
@@ -128,7 +132,7 @@ const SearchPage = () => {
                     <SearchInput value={value} searchBy={selectedOption} handleChange={handleChange} handleSubmit={handleSubmit} />
                 </div>
                 <div className="search-edit">
-                    <button className="edit sendbtn btn message-btn " onClick={() => navigate("/edit")}>
+                    <button className="edit sendbtn btn message-btn " onClick={handleEdit}>
                         Edit
                     </button>
                 </div>

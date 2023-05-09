@@ -127,31 +127,38 @@ class AuthController extends Controller
                 'profile' => $profile,
                 'location' => $location,
                 'image' => $image,
-            ], 200, $headers);
+            ], 200);
         }else {
             return response()->json([
                 'status' => 'Error',
                 'message' => 'Unauthorized',
-            ], 401, $headers);
+            ], 401);
         }
     }
 
-    public function getProfileDetails(Request $request) 
+    public function getProfileDetails($user_id) 
     {
         $user = Auth::user();
+        // $user_id = $request->user_id;
+        // $user_id = $user->id;
+        $users = User::where('id', $user_id)->get();
+        $name = $users[0]->name;
+
         if($user){
-            $checkProfile = Profile::where('user_id', $user->id)->get();
+            $checkProfile = Profile::where('user_id', $user_id)->get();
+            $checkLocation = Location::where('user_id', $user_id)->get();
+            $checkPicture = Picture::where('user_id', $user_id)->get();
             
-            if($checkProfile->isNotEmpty()){
+            if($checkProfile->isNotEmpty()&& $checkLocation->isNotEmpty()){
                 $profile = Profile::select('profiles.description', 'profiles.age', 'profiles.gender', 'locations.address', 'locations.city', 'locations.state', 'pictures.img')
                     ->join('locations', 'profiles.user_id', '=', 'locations.user_id')
                     ->join('pictures', 'profiles.user_id', '=', 'pictures.user_id')
-                    ->where('profiles.user_id', $user->id)
+                    ->where('profiles.user_id', $user_id)
                     ->first();
 
                 return response()->json([
                     'status' => 'Success',
-                    'name' => $user->name,
+                    'name' => $name,
                     'age' => $profile->age,
                     'description' => $profile->description,
                     'gender' => $profile->gender,

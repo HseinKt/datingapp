@@ -9,11 +9,18 @@ const Cards = (props) => {
         e.preventDefault();
         navigate("/message")
     }
+
+    const handleCard = (e) => {
+        const { id } = props.data;
+        localStorage.setItem('user_id', id)
+        navigate("/profile");
+    }
+
     return ( 
         <div className="user-container">
             <div className="card-container">
                 <div className="image-container">
-                    <img src={card} alt="card" className="card-image" onClick={()=>navigate("/profile")}/>
+                    <img src={card} alt="card" className="card-image" onClick={handleCard}/>
                 </div>
                 <div className="details">
                     <h4 className="name">
