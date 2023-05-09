@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import card from "../../images/card.jpg"
 import logo from "../../images/logo2.png"
+import { useState } from "react";
 
 const Cards = (props) => {
     const navigate  = useNavigate();
@@ -17,6 +18,15 @@ const Cards = (props) => {
         navigate("/profile");
     }
 
+    const [clicked, setClicked] = useState(false);
+    const [clickedBlock, setClickedBlock] = useState(false);
+    
+    const handleLove = () => {
+        setClicked(!clicked);
+    } 
+    const handleBlock = () => {
+        setClickedBlock(!clickedBlock);
+    }
     return ( 
         <div className="user-container">
             <div className="card-container">
@@ -36,8 +46,8 @@ const Cards = (props) => {
                 </div>
                 <div className="card-buttons">
                     <div className="love-block">
-                        <img src={logo} alt="love" className="love-card" />
-                        <button className="block btn">
+                        <img src={logo} alt="love" className={`love-card ${clicked ? 'clicked-card' : ''}`} onClick={handleLove} />
+                        <button className={`block btn ${clickedBlock ? 'block-card' : ''}`} onClick={handleBlock} >
                             block
                         </button>
                     </div>

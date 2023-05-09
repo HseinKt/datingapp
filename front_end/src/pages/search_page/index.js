@@ -139,7 +139,7 @@ const SearchPage = () => {
                     <button className="edit sendbtn btn message-btn " onClick={handleEdit}>
                         Edit
                     </button>
-                    <button className="edit sendbtn btn message-btn " onClick={handleProfile}>
+                    <button className="edit sendbtn btn message-btn profile-btn" onClick={handleProfile}>
                         Profile
                     </button>
                 </div>

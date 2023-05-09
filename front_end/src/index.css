@@ -244,6 +244,9 @@ a:hover {
 .search-edit .edit:hover {
   border-radius: 40%;
 }
+.search-edit .profile-btn:hover {
+  background-color: var(--orange);
+}
 
 /* Card */
 .cards {
@@ -327,6 +330,9 @@ a:hover {
   margin-top: 10%;
   cursor: pointer;
 }
+.clicked-card {
+  filter: hue-rotate(500deg);
+}
 .love-card:hover {
   filter: hue-rotate(500deg);
 }
@@ -336,6 +342,10 @@ a:hover {
   width: 46px;
   height: 40px;
   margin-top: 10%;
+}
+.block-card {
+  background-color: whitesmoke;
+  color: black;
 }
 .block:hover {
   background-color: whitesmoke;
