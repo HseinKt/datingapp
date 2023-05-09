@@ -85,9 +85,7 @@ const EditProfile = () => {
             try {
                 axios.post("http://localhost:8000/api/v0.0.1/edit_profile", formData, {
                     headers : {
-                        'Authorization' : 'Bearer ' + token,
-                        // 'Content-Type': 'multipart/form-data',
-                        // 'Access-Control-Allow-Origin': '*'
+                        'Authorization' : 'Bearer ' + token
                     }
                 })
                 .then(response => {

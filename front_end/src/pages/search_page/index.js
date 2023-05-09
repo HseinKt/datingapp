@@ -121,6 +121,10 @@ const SearchPage = () => {
         navigate("/edit")
     }
 
+    const handleProfile = () => {
+        localStorage.setItem('user_id', 0);
+        navigate("/profile");
+    }
     return ( 
         <div>
             <Header />
@@ -134,6 +138,9 @@ const SearchPage = () => {
                 <div className="search-edit">
                     <button className="edit sendbtn btn message-btn " onClick={handleEdit}>
                         Edit
+                    </button>
+                    <button className="edit sendbtn btn message-btn " onClick={handleProfile}>
+                        Profile
                     </button>
                 </div>
                 
