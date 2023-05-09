@@ -7,8 +7,8 @@ import axios from "axios";
 const Cards = (props) => {
     const navigate  = useNavigate();
     const [token, setToken] = useState("");
-    const [clicked, setClicked] = useState(false);
-    const [clickedBlock, setClickedBlock] = useState(false);
+    const [clicked, setClicked] = useState(0);
+    const [clickedBlock, setClickedBlock] = useState(0);
 
     useEffect(() => {
         const myToken = localStorage.getItem('token');
@@ -32,18 +32,89 @@ const Cards = (props) => {
     }
 
     const handleLove = () => {
-        setClicked(!clicked);
         const { id } = props.data;
-        
-        try {
-            axios.post("/add_favorite")
-        } catch (error) {
-            console.log("Catch error: " + error);
+        console.log(id);
+
+        if(clicked == 0) {
+            setClicked(1);
+            try {
+                axios.get(`http://localhost:8000/api/v0.0.1/add_favorite/${id}`, {
+                    headers : {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch (err => console.log("axios error: " + err.message))
+            } catch (error) {
+                console.log("Catch error: " + error);
+            }
+        } else {
+            setClicked(0);
+            try {
+                axios.get(`http://localhost:8000/api/v0.0.1/remove_favorite_Or_Block/${id}`, {
+                    headers : {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch (err => console.log("axios error: " + err.message))
+            } catch (error) {
+                console.log("Catch error: " + error);
+            }
         }
-    } 
+    }  
+    
     const handleBlock = () => {
         setClickedBlock(!clickedBlock);
+        const { id } = props.data;
+        if (clickedBlock == 0) {
+            setClickedBlock(2);
+            try {
+                axios.get(`http://localhost:8000/api/v0.0.1/add_block/${id}`, {
+                    headers : {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch (err => console.log("axios error: " + err.message))
+            } catch (error) {
+                console.log("Catch error: " + error);
+            }
+        }            
+
+        else {
+            setClickedBlock(0);
+            try {
+                axios.get(`http://localhost:8000/api/v0.0.1/remove_favorite_Or_Block/${id}`, {
+                    headers : {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch (err => console.log("axios error: " + err.message))
+            } catch (error) {
+                console.log("Catch error: " + error);
+            }
+        }
+        
     }
+
     return ( 
         <div className="user-container">
             <div className="card-container">
