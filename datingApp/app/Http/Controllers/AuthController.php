@@ -202,7 +202,7 @@ class AuthController extends Controller
         $users = DB::table('users')
                     ->join('profiles', 'profiles.user_id', '=', 'users.id')
                     ->where('profiles.age',$request->age)
-                    ->select('users.name','profiles.age')
+                    ->select('users.id as id','users.name','profiles.age')
                     ->get();
         
         return response()->json([
@@ -233,7 +233,7 @@ class AuthController extends Controller
         $users = DB::table('users')
                     ->join('locations', 'locations.user_id','=', 'users.id')
                     ->where('locations.city','LIKE',"%$city%")
-                    ->select('users.name', 'locations.city')
+                    ->select('users.id as id','users.name', 'locations.city')
                     ->get();
 
         $city = $request->city;
