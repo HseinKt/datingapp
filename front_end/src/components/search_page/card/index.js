@@ -145,11 +145,11 @@ const Cards = (props) => {
                             block
                         </button>
                     </div>
-                    <div className="messagebtn">
+                    {/* <div className="messagebtn">
                         <button className="sendbtn btn" onClick={handleSubmit}>
                             send a message
                         </button>
-                    </div> 
+                    </div>  */}
                 </div>
             </div>
         </div>
