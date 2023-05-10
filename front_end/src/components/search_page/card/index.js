@@ -76,7 +76,7 @@ const Cards = (props) => {
     }  
     
     const handleBlock = () => {
-        setClickedBlock(!clickedBlock);
+        // setClickedBlock(!clickedBlock);
         const { id } = props.data;
         if (clickedBlock == 0) {
             if(clicked == 1) {
@@ -98,9 +98,7 @@ const Cards = (props) => {
             } catch (error) {
                 console.log("Catch error: " + error);
             }
-        }            
-
-        else {
+        } else {
             setClickedBlock(0);
             try {
                 axios.get(`http://localhost:8000/api/v0.0.1/remove_favorite_Or_Block/${id}`, {
@@ -117,8 +115,7 @@ const Cards = (props) => {
             } catch (error) {
                 console.log("Catch error: " + error);
             }
-        }
-        
+        } 
     }
 
     return ( 

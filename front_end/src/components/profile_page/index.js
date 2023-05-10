@@ -1,9 +1,110 @@
 import { useNavigate } from "react-router-dom";
 import card from "../images/card.jpg"
 import logo from "../images/logo2.png"
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Profile = (props) => {
     const navigate = useNavigate();
+    const [token, setToken] = useState("")
+    const [clicked, setClicked] = useState(0);
+    const [clickedBlock, setClickedBlock] = useState(0);
+
+    useEffect(() => {
+        const myToken = localStorage.getItem('token');
+        if(!myToken) {
+            navigate("/login");
+        }
+        else {
+            setToken(myToken);
+        }
+    })
+
+    const handleLove = () => {
+        const id = localStorage.getItem('user_id');
+
+        if(clicked == 0) {
+            if(clickedBlock == 2){
+                setClickedBlock(0)
+            }
+            setClicked(1);
+            try {
+                axios.get(`http://localhost:8000/api/v0.0.1/add_favorite/${id}`, {
+                    headers : {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch (err => console.log("axios error: " + err.message))
+            } catch (error) {
+                console.log("Catch error: " + error);
+            }
+        } else {
+            setClicked(0);
+            try {
+                axios.get(`http://localhost:8000/api/v0.0.1/remove_favorite_Or_Block/${id}`, {
+                    headers : {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch (err => console.log("axios error: " + err.message))
+            } catch (error) {
+                console.log("Catch error: " + error);
+            }
+        }
+    }  
+    
+    const handleBlock = () => {
+        const id = localStorage.getItem('user_id');
+        
+        if (clickedBlock == 0) {
+            if(clicked == 1) {
+                setClicked(0)
+            }
+            setClickedBlock(2);
+            try {
+                axios.get(`http://localhost:8000/api/v0.0.1/add_block/${id}`, {
+                    headers : {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch (err => console.log("axios error: " + err.message))
+            } catch (error) {
+                console.log("Catch error: " + error);
+            }
+        } else {
+            setClickedBlock(0);
+            try {
+                axios.get(`http://localhost:8000/api/v0.0.1/remove_favorite_Or_Block/${id}`, {
+                    headers : {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch (err => console.log("axios error: " + err.message))
+            } catch (error) {
+                console.log("Catch error: " + error);
+            }
+        } 
+    }
 
     return ( 
         <div className="profile-box">
@@ -30,8 +131,8 @@ const Profile = (props) => {
                     </div>
                     <div className="card-buttons profile-buttons">
                         <div className="love-block">
-                            <img src={logo} alt="love" className="love-card" />
-                            <button className="block btn">
+                            <img src={logo} alt="love" className={`love-card ${clicked ? 'clicked-card' : ''}`} onClick={handleLove} />
+                            <button className={`block btn ${clickedBlock ? 'block-card' : ''}`} onClick={handleBlock} >
                                 block
                             </button>
                             <button className="sendbtn btn message-btn" onClick={() => navigate("/message")}>
