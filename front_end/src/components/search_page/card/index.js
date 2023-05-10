@@ -36,6 +36,9 @@ const Cards = (props) => {
         console.log(id);
 
         if(clicked == 0) {
+            if(clickedBlock == 2){
+                setClickedBlock(0)
+            }
             setClicked(1);
             try {
                 axios.get(`http://localhost:8000/api/v0.0.1/add_favorite/${id}`, {
@@ -76,6 +79,9 @@ const Cards = (props) => {
         setClickedBlock(!clickedBlock);
         const { id } = props.data;
         if (clickedBlock == 0) {
+            if(clicked == 1) {
+                setClicked(0)
+            }
             setClickedBlock(2);
             try {
                 axios.get(`http://localhost:8000/api/v0.0.1/add_block/${id}`, {
