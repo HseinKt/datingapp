@@ -9,6 +9,7 @@ const Profile = (props) => {
     const [token, setToken] = useState("")
     const [clicked, setClicked] = useState(0);
     const [clickedBlock, setClickedBlock] = useState(0);
+    const id = localStorage.getItem('user_id');
 
     useEffect(() => {
         const myToken = localStorage.getItem('token');
@@ -17,12 +18,14 @@ const Profile = (props) => {
         }
         else {
             setToken(myToken);
+            console.log(id);
+
         }
     })
 
     const handleLove = () => {
-        const id = localStorage.getItem('user_id');
-
+        // const id = localStorage.getItem('user_id');
+        console.log(id);
         if(clicked == 0) {
             if(clickedBlock == 2){
                 setClickedBlock(0)
@@ -64,8 +67,8 @@ const Profile = (props) => {
     }  
     
     const handleBlock = () => {
-        const id = localStorage.getItem('user_id');
-        
+        // const id = localStorage.getItem('user_id');
+
         if (clickedBlock == 0) {
             if(clicked == 1) {
                 setClicked(0)
@@ -106,6 +109,10 @@ const Profile = (props) => {
         } 
     }
 
+    const handleSubmit = () => {
+        navigate("/message")
+    }
+    
     return ( 
         <div className="profile-box">
             <div className="profile-container">
@@ -130,15 +137,16 @@ const Profile = (props) => {
                         </p>
                     </div>
                     <div className="card-buttons profile-buttons">
-                        <div className="love-block">
+                        {id != 0 ? <div className="love-block">
                             <img src={logo} alt="love" className={`love-card ${clicked ? 'clicked-card' : ''}`} onClick={handleLove} />
                             <button className={`block btn ${clickedBlock ? 'block-card' : ''}`} onClick={handleBlock} >
                                 block
                             </button>
-                            <button className="sendbtn btn message-btn" onClick={() => navigate("/message")}>
+                            <button className="sendbtn btn message-btn" onClick={handleSubmit} >
                                 Message
                             </button>
                         </div>
+                        : <p></p>}
                     </div>
                 </div>
             </div>
