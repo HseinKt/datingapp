@@ -19,10 +19,6 @@ const Cards = (props) => {
             setToken(myToken);
         }
     })
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        navigate("/message")
-    }
 
     const handleCard = (e) => {
         const { id, name } = props.data;
@@ -76,7 +72,6 @@ const Cards = (props) => {
     }  
     
     const handleBlock = () => {
-        // setClickedBlock(!clickedBlock);
         const { id } = props.data;
         if (clickedBlock == 0) {
             if(clicked == 1) {
@@ -142,11 +137,6 @@ const Cards = (props) => {
                             block
                         </button>
                     </div>
-                    {/* <div className="messagebtn">
-                        <button className="sendbtn btn" onClick={handleSubmit}>
-                            send a message
-                        </button>
-                    </div>  */}
                 </div>
             </div>
         </div>

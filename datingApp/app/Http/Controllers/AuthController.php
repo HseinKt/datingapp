@@ -400,8 +400,8 @@ class AuthController extends Controller
         $user = Auth::user();
         $source_id = $user->id;
         $dest_id  = $request->receiver_id;
-        $sender_name = $user->name;
-        $receiver_name = User::where('id',$dest_id)->value('name');
+        // $sender_name = $user->name;
+        // $receiver_name = User::where('id',$dest_id)->value('name');
 
         if ($source_id != $dest_id) 
         {
@@ -411,12 +411,16 @@ class AuthController extends Controller
                 'receiver_id' => $dest_id,
             ]);
 
+            $user_message = Message::join('users as sender', 'sender.id', '=', 'messages.sender_id')
+                                    ->join('users as receiver', 'receiver.id', '=', 'messages.receiver_id')
+                                    ->select('messages.*', 'sender.name as sender_name', 'receiver.name as receiver_name')
+                                    ->where('messages.id', '=', $message->id)
+                                    ->first();
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'added user favorite',
-                'sender_name' => $sender_name,
-                'receiver_name' => $receiver_name,
-                'user_message' => $message
+                'message' => 'sent a message',
+                'user_message' => $user_message
             ], 200);
         }
         else 
@@ -433,19 +437,27 @@ class AuthController extends Controller
         $user = Auth::user();
         $source_id = $user->id;
         $dest_id  = $request->receiver_id;
-        $sender_name = $user->name;
-        $receiver_name = User::where('id',$dest_id)->value('name');
+        // $sender_name = $user->name;
+        // $receiver_name = User::where('id',$dest_id)->value('name');
 
-        $message = Message::where('receiver_id',$source_id)
-                            ->where('sender_id',$dest_id)
-                            ->get();
+        // $u = User::where('id',$source_id)->get();
+        $user_message = Message::join('users as sender', 'sender.id', '=', 'messages.sender_id')
+                                ->join('users as receiver', 'receiver.id', '=', 'messages.receiver_id')
+                                ->select('messages.*', 'sender.name as sender_name', 'receiver.name as receiver_name')
+                                ->where(function ($query) use ($source_id, $dest_id) {
+                                    $query->where('sender_id',$source_id)
+                                            ->where('receiver_id',$dest_id);
+                                })
+                                ->orWhere(function ($query) use ($source_id, $dest_id) {
+                                    $query->where('sender_id',$dest_id)
+                                            ->where('receiver_id',$source_id);
+                                })
+                                ->get();
 
         return response()->json([
             'status' => 'success',
             'message' => 'messages founded',
-            'sender_name' => $receiver_name,
-            'receiver_name' => $sender_name,
-            'user_message' => $message
+            'user_message' => $user_message
         ], 200);
     }  
 }
