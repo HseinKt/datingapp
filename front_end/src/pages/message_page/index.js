@@ -79,7 +79,7 @@ const MessagePage = () => {
             <Header />
             <div className="ChatBox">
                 {!!messages && messages.map((message, index) => {
-                    return <ChatBox message={message.body} key={index} name={message.sender_name}/>
+                    return <ChatBox message={message.body} key={index} sender_name={message.sender_name} receiver_name={message.receiver_name} />
                 })}
             </div>
             <Chat value={value} handleValue={handleValue} handleMessageSend={handleMessageSend}/>
