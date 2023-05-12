@@ -11,9 +11,6 @@ const MessagePage = () => {
     const [messages, setMessages] = useState([]);
     const [value, setValue] = useState("");
     const [token, setToken] = useState("");
-    // const [name, setName] = useState("");
-    // const [body, setBody] = useState("Hi there!!!!!!!!");
-    // const [receiver_id, setReceiver_id] = useState("");
 
     useEffect(() => {
         const myToken = localStorage.getItem("token");
@@ -36,6 +33,7 @@ const MessagePage = () => {
                 .then (response => {
                     console.log(response.data);
                     setMessages(response.data.user_message)
+                    console.log(response.data.sender_id);
                 })
                 .catch(err => console.log("Axios error: " + err.message))
             } catch (error) {
@@ -50,6 +48,7 @@ const MessagePage = () => {
     
     const handleMessageSend = (e) => {
         e.preventDefault();
+        setValue("");
         const receiver_id = localStorage.getItem('user_id');
         const formData = new FormData();
         formData.append('receiver_id',receiver_id);
@@ -66,7 +65,6 @@ const MessagePage = () => {
                 console.log(messages);
                 console.log(response.data.user_message);
                 setMessages([...messages,response.data.user_message]);
-                // setName(response.data.sender_name)
             })
             .catch(err => console.log("Axios error: "+err.message))
         } catch (error) {
@@ -78,8 +76,10 @@ const MessagePage = () => {
         <div>
             <Header />
             <div className="ChatBox">
-                {!!messages && messages.map((message, index) => {
-                    return <ChatBox message={message.body} key={index} sender_name={message.sender_name} receiver_name={message.receiver_name} />
+                {!!messages && messages
+                .sort((a,b) => new Date(a.created_at) - new Date(b.created_at))
+                .map((message, index) => {
+                    return <ChatBox message={message.body} key={index} sender_id={message.sender_id} sender_name={message.sender_name} receiver_name={message.receiver_name} />
                 })}
             </div>
             <Chat value={value} handleValue={handleValue} handleMessageSend={handleMessageSend}/>

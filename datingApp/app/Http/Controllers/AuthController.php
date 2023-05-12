@@ -400,8 +400,6 @@ class AuthController extends Controller
         $user = Auth::user();
         $source_id = $user->id;
         $dest_id  = $request->receiver_id;
-        // $sender_name = $user->name;
-        // $receiver_name = User::where('id',$dest_id)->value('name');
 
         if ($source_id != $dest_id) 
         {
@@ -420,6 +418,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'sent a message',
+                'sender_id' => $source_id,
                 'user_message' => $user_message
             ], 200);
         }
@@ -437,10 +436,7 @@ class AuthController extends Controller
         $user = Auth::user();
         $source_id = $user->id;
         $dest_id  = $request->receiver_id;
-        // $sender_name = $user->name;
-        // $receiver_name = User::where('id',$dest_id)->value('name');
-
-        // $u = User::where('id',$source_id)->get();
+        
         $user_message = Message::join('users as sender', 'sender.id', '=', 'messages.sender_id')
                                 ->join('users as receiver', 'receiver.id', '=', 'messages.receiver_id')
                                 ->select('messages.*', 'sender.name as sender_name', 'receiver.name as receiver_name')
@@ -457,6 +453,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'messages founded',
+            'sender_id' => $source_id,
             'user_message' => $user_message
         ], 200);
     }  

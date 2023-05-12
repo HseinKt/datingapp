@@ -391,15 +391,16 @@ a:hover {
 /* Chat Text */
 .chatBoxContainer {
   display: flex;
-  justify-content: flex-start;
-  margin-bottom: 5px;
+  align-items: flex-start;
+  margin-bottom: 10px;
 }
 .message {
   background-color: var(--blue);
   color: white;
-  padding: 3px 6px;
+  padding: 0px 6px;
   border-radius: 20px;
   margin-left: 10px;
+  padding-bottom: 14px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 .message:hover {
@@ -407,9 +408,25 @@ a:hover {
   color: black;
   box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3);
 }
+.message-receiver {
+  background-color: var(--orange);
+  color: black;
+  padding: 0px 6px;
+  border-radius: 20px;
+  margin-left: 10px;
+  padding-bottom: 14px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+.message-receiver:hover {
+  background-color: #f5ce9b;
+  color: black;
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.3);
+}
 .message ul .name{
   color: black;
-  font-size: 13px;
+  font-size: 17px;
+  font-weight: 900;
+  padding-bottom: 10px;
 }
 .targetName {
   color: rgb(4, 4, 85);
@@ -423,17 +440,17 @@ a:hover {
 /* Chat Box */
 .ChatBox {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   align-items: flex-start;
   width: 50%;
   height: 60vh;
   background-color: lightgrey;
-  border: 15px solid var(--dark_blue);
+  border: 15px dotted var(--dark_blue);
   padding: 50px;
   margin: 20px;
   margin-left: 24%;
   margin-right: 20%;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 /* Profile Page */
