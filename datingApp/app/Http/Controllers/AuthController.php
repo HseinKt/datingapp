@@ -207,7 +207,7 @@ class AuthController extends Controller
         
         return response()->json([
             'status' => 'success',
-            'message' => 'user founded',
+            'message' => 'user founded by age',
             'users' => $users,
         ], 200);
     }
@@ -222,7 +222,7 @@ class AuthController extends Controller
        
         return response()->json([
             'status' => 'success',
-            'message' => 'user founded',
+            'message' => 'set location successfully updated',
             'location' => $location,
         ], 200);
     }
@@ -239,7 +239,7 @@ class AuthController extends Controller
         $city = $request->city;
         return response()->json([
             'status' => 'success',
-            'message' => 'user founded',
+            'message' => 'user founded by city',
             'city' => $city,
             'users' => $users,
         ], 200);
@@ -252,7 +252,7 @@ class AuthController extends Controller
         
         return response()->json([
             'status' => 'success',
-            'message' => 'user founded',
+            'message' => 'user founded by name',
             'users' => $users,
         ], 200);
     }
