@@ -265,6 +265,8 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: self-start;
+  width: 90%;
+  height: 70vh;
 }
 .card-container:hover {
   box-shadow: 0 9px 16px 0 rgba(0,0,0,0.2);
@@ -393,6 +395,7 @@ a:hover {
   display: flex;
   align-items: flex-start;
   margin-bottom: 10px;
+  /* flex-direction: column; */
 }
 .message {
   background-color: var(--blue);
@@ -436,6 +439,12 @@ a:hover {
 }
 .message ul .sendMessage {
   font-size: large;
+}
+.localDate {
+  font-size: smaller;
+  padding-left: 50px;
+  text-align: right;
+  color: rgb(29, 28, 28);
 }
 /* Chat Box */
 .ChatBox {

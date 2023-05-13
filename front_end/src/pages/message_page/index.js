@@ -79,7 +79,7 @@ const MessagePage = () => {
                 {!!messages && messages
                 .sort((a,b) => new Date(a.created_at) - new Date(b.created_at))
                 .map((message, index) => {
-                    return <ChatBox message={message.body} key={index} sender_id={message.sender_id} sender_name={message.sender_name} receiver_name={message.receiver_name} />
+                    return <ChatBox message={message.body} key={index} sender_id={message.sender_id} sender_name={message.sender_name} time={message.created_at} />
                 })}
             </div>
             <Chat value={value} handleValue={handleValue} handleMessageSend={handleMessageSend}/>
