@@ -22,6 +22,7 @@ const ChatBox = (props) => {
                         <ul className="listStyle">
                             <li className='name'> <span className='targetName'> { props.sender_name } </span> </li>
                             <li className="sendMessage">{props.message}</li>
+                            <li className="localDate">{localDate}</li>
                         </ul>
                     </div>
                 </div>
