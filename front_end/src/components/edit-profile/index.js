@@ -91,8 +91,8 @@ const EditProfile = () => {
                     }
                 })
                 .then(response => {
-                    console.log( response);
-                    // navigate("/profile")
+                    console.log(response);
+                    navigate("/profile")
                 })
                 .catch(err => {
                     console.log("Axios error: " + err.message);
