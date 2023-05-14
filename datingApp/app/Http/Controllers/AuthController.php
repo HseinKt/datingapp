@@ -96,8 +96,9 @@ class AuthController extends Controller
     {
         $user = Auth::user();
         if($user) 
-        {
-            if($request->name == '' || $request->description == '' || $request->age == '' || $request->gender == '' || $request->address == '' || $request->city == '' || $request->state == '' ){
+        {      
+            if($request->name == "" || $request->about == "" || $request->age == "" || $request->gender == "" || $request->address == "" || $request->city == "" || $request->state == "" )
+            {
                 return response()->json([
                     'status' => 'please make sure all the data are filled in',
                 ]);
@@ -109,7 +110,7 @@ class AuthController extends Controller
             );
             $profile = Profile::updateOrCreate(
                 ['user_id' => $user->id],
-                ['description' => $request->description, 'age' => $request->age, 'gender' => $request->gender]
+                ['description' => $request->about, 'age' => $request->age, 'gender' => $request->gender]
             );
             $location = Location::updateOrCreate(
                 ['user_id' => $user->id],
@@ -124,9 +125,13 @@ class AuthController extends Controller
                 'message' => 'your profile was updated successfully',
                 'name' => $user->name,
                 'user_name' => $users->name,
-                'profile' => $profile,
-                'location' => $location,
-                'image' => $image,
+                'age' => $profile->age,
+                'description' => $profile->about,
+                'gender' => $profile->gender,
+                'address' => $location->address,
+                'city' => $location->city,
+                'state' => $location->state,
+                'image' => $image->img
             ], 200);
         }else {
             return response()->json([

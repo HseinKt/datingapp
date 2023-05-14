@@ -69,7 +69,7 @@ const EditProfile = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(name==="" || age==="" || gender==="" ||about==="" || address==="" || city==="" || state==="") {
-            alert('please make sure all the data are filled in');
+            alert('please make sure all the data are filled IN');
         }
         else {
             const formData = new FormData();
@@ -81,11 +81,13 @@ const EditProfile = () => {
             formData.append('city',city);
             formData.append('state',state);
             formData.append('img',"img");
-            // console.log("formDATA"+formData); 
+            console.log(formData); 
             try {
                 axios.post("http://localhost:8000/api/v0.0.1/edit_profile", formData, {
                     headers : {
-                        'Authorization' : 'Bearer ' + token
+                        'Authorization' : 'Bearer ' + token,
+                        'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': '*'
                     }
                 })
                 .then(response => {
@@ -93,7 +95,7 @@ const EditProfile = () => {
                     // navigate("/profile")
                 })
                 .catch(err => {
-                    console.log("axios error:" + err.message);
+                    console.log("Axios error: " + err.message);
                 })
             } catch (error) {
                 console.log("Carch Error: " + error);
