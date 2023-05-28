@@ -9,6 +9,7 @@ const Cards = (props) => {
     const [token, setToken] = useState("");
     const [clicked, setClicked] = useState(0);
     const [clickedBlock, setClickedBlock] = useState(0);
+    const { data, image } = props; 
 
     useEffect(() => {
         const myToken = localStorage.getItem('token');
@@ -117,7 +118,7 @@ const Cards = (props) => {
         <div className="user-container">
             <div className="card-container">
                 <div className="image-container">
-                    <img src={card} alt="card" className="card-image" onClick={handleCard}/>
+                    <img src={image} alt="card" className="card-image" onClick={handleCard}/>
                 </div>
                 <div className="details">
                     <h4 className="name">

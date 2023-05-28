@@ -12,6 +12,7 @@ const SearchPage = () => {
     const [token, setToken] = useState("");
     const [results, setResults] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
+    const [images, setImages] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,6 +33,12 @@ const SearchPage = () => {
                 .then(response => {
                     console.log(response.data);
                     setResults(response.data.users);
+
+                    const images = response.data.users.map(user => {
+                        const newImageURL = `http://localhost:8000/storage/images/${user.img}`;
+                        return newImageURL;
+                    });
+                    setImages(images);
                 })
                 .catch (error => {
                     console.log("axios error: " + error);
@@ -40,7 +47,7 @@ const SearchPage = () => {
                 console.log("Catcher error: " + error);
             }
         }
-    }, [])
+    }, []);
 
     const handleOptionClick = (optionId) => {
         setSelectedOption(optionId);
@@ -148,7 +155,7 @@ const SearchPage = () => {
             <div className="cards">
                 {results.map((user, index) => (
                     <div>
-                        <Cards data={user} />
+                        <Cards data={user} image={images[index]}/>
                     </div>
                 ))}
             </div>

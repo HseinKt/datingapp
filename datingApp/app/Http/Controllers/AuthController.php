@@ -278,8 +278,13 @@ class AuthController extends Controller
 
     public function getAllUsers(Request $request)
     {
-        $users = User::all();
+        // $user = User::all();
+        // $checkPicture = Picture::;
 
+        $users = User::select('users.*', 'pictures.img')
+                    ->leftJoin('pictures', 'pictures.user_id', '=', 'users.id')
+                    ->get();
+                    
         return response()->json([
             'status' => 'success',
             'message' => 'user founded',
