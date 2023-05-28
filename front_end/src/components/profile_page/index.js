@@ -117,7 +117,8 @@ const Profile = (props) => {
         <div className="profile-box">
             <div className="profile-container">
                 <div className="profile-img">
-                    <img src={card} alt="profile" />
+                    { props.image && (<img src={props.image} alt="profile" />) }
+                    { !props.image && (<img src={card} alt="profile" />) }   
                 </div>
                 <div className="profile-details">
                     <div className="name">

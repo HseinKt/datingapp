@@ -474,6 +474,7 @@ a:hover {
 }
 .profile-img img{
   width: 400px;
+  height: 400px;
 }
 .profile-details {
   width: 100%;

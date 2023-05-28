@@ -116,6 +116,7 @@ const EditProfile = () => {
                             })
                             .then(response => {
                                 console.log(response);
+                                navigate("/profile");
                             })
                             .catch(err => {
                                 console.log("AXIOS Image error: " + err.message);
@@ -123,6 +124,8 @@ const EditProfile = () => {
                         } catch (error) {
                             console.log("Carch Image Error: " + error);
                         }
+                    } else {
+                        navigate("/profile");
                     }
                 })
                 .catch(err => {

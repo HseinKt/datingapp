@@ -13,7 +13,7 @@ const ProfilePage = () => {
     const [address, setAddress] = useState ("");
     const [city, setCity] = useState ("");
     const [state, setState] = useState ("");
-    const [token, setToken] = useState("")
+    const [image, setImage] = useState("");
 
     useEffect(() => {
         const myToken = localStorage.getItem('token');
@@ -21,7 +21,6 @@ const ProfilePage = () => {
             navigate("/login");
         }
         else {
-            setToken(myToken);
             const user_id = localStorage.getItem('user_id');
             const user_name = localStorage.getItem('user_name');
             try {
@@ -41,6 +40,11 @@ const ProfilePage = () => {
                     setAddress(response.data.address);
                     setCity(response.data.city);
                     setState(response.data.state);
+                    const imageFileName = response.data.image;
+                    if(imageFileName) {
+                        const imageURL = `http://localhost:8000/storage/images/${imageFileName}`;
+                        setImage(imageURL);
+                    }
                 })
                 .catch(err => {
                     if(err.response.status === 404) {
@@ -68,6 +72,7 @@ const ProfilePage = () => {
                 address={address}
                 city={city}
                 state={state}
+                image={image} 
             />
         </div>
      );
