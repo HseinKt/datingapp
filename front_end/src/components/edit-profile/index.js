@@ -14,7 +14,8 @@ const EditProfile = () => {
     const [address, setAddress] = useState ("");
     const [city, setCity] = useState ("");
     const [state, setState] = useState ("");
-    const [previewImage, setPreviewImage] = useState(null);
+    const [image, setImage] = useState("");
+    const [uploadImage, setUploadImage] = useState("");
 
     useEffect(() => {
         const myToken = localStorage.getItem('token');
@@ -33,7 +34,7 @@ const EditProfile = () => {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
+                    console.log("get profile api: "+response.data);
                     setName(response.data.name);
                     setAge(response.data.age);
                     setGender(response.data.gender);
@@ -41,12 +42,17 @@ const EditProfile = () => {
                     setAddress(response.data.address);
                     setCity(response.data.city);
                     setState(response.data.state);
+                    const imageFileName = response.data.image;
+                    if(imageFileName) {
+                        const imageURL = `http://localhost:8000/storage/images/${imageFileName}`;
+                        setUploadImage(imageURL);
+                    }
                 })
                 .catch(err => {
                     if(err.response.status === 404) {
                         console.log("user does not have a profile yet.")
                     } else {
-                        console.log("axios error:" + err.message);
+                        console.log("axios error (get Profile):" + err.message);
                     }
                 })
             } catch (error) {
@@ -57,10 +63,12 @@ const EditProfile = () => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+        setImage(file);
+
         const reader = new FileReader();
 
         reader.onload = (e) => {
-            setPreviewImage(e.target.result);
+            setUploadImage(e.target.result);
         }
 
         reader.readAsDataURL(file);
@@ -80,7 +88,7 @@ const EditProfile = () => {
             formData.append('address',address);
             formData.append('city',city);
             formData.append('state',state);
-            formData.append('img',"img");
+
             console.log(formData); 
             try {
                 axios.post("http://localhost:8000/api/v0.0.1/edit_profile", formData, {
@@ -92,10 +100,33 @@ const EditProfile = () => {
                 })
                 .then(response => {
                     console.log(response);
-                    navigate("/profile")
+
+                    if(image) 
+                    {
+                        const imageData = new FormData();
+                        imageData.append('img',image);
+                        console.log(image);
+                        try {
+                            axios.post("http://localhost:8000/api/v0.0.1/add_image", imageData, {
+                                headers : {
+                                    'Authorization' : 'Bearer ' + token,
+                                    'Content-Type': 'multipart/form-data',
+                                    'Access-Control-Allow-Origin': '*'
+                                }
+                            })
+                            .then(response => {
+                                console.log(response);
+                            })
+                            .catch(err => {
+                                console.log("AXIOS Image error: " + err.message);
+                            })
+                        } catch (error) {
+                            console.log("Carch Image Error: " + error);
+                        }
+                    }
                 })
                 .catch(err => {
-                    console.log("Axios error: " + err.message);
+                    console.log("AXIOS error: " + err.message);
                 })
             } catch (error) {
                 console.log("Carch Error: " + error);
@@ -106,7 +137,7 @@ const EditProfile = () => {
     return ( 
         <div className="edit-container">
 
-            <UploadImage previewImage={previewImage}  handleImageChange={handleImageChange}/>
+            <UploadImage previewImage={uploadImage}  handleImageChange={handleImageChange}/>
 
             <div className="edit-box-container">
                 <h3>Edit Your Profile</h3>

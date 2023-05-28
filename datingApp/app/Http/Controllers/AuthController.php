@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\Location;
@@ -96,7 +97,12 @@ class AuthController extends Controller
     {
         $user = Auth::user();
         if($user) 
-        {      
+        {
+            // $request->validate([
+            //     'age' => 'required|number',
+            //     'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            // ]);   
+
             if($request->name == "" || $request->about == "" || $request->age == "" || $request->gender == "" || $request->address == "" || $request->city == "" || $request->state == "" )
             {
                 return response()->json([
@@ -116,10 +122,52 @@ class AuthController extends Controller
                 ['user_id' => $user->id],
                 ['address' => $request->address, 'city' => $request->city, 'state' => $request->state]
             );
-            $image = Picture::updateOrCreate(
-                ['user_id' => $user->id],
-                ['img' => $request->img]
-            );
+
+            // step 4
+            // if($request->hasFile('img')) {
+            //     $image = $request->file('img');
+            //     $imagePath = $image->store('profile_images', 'public');
+            //     dd($image);
+            //     // Store the image path in the database
+            //     $picture->img = $imagePath;
+            //     $picture->save();
+            // }
+
+            // if($image) {           step 3
+            //     $compressedImage = Image::make($image)
+            //         ->resize(800, null, function ($constraint) {
+            //             $constraint->aspectRatio();
+            //             $constraint->upsize();
+            //         })
+            //         ->encode('jpg', 75); // Adjust the quality (75 is just an example)
+
+            //     // Convert the compressed image to base64
+            //     $base64Image = base64_encode($compressedImage);
+
+            //     $picture = Picture::updateOrCreate(
+            //         ['user_id' => $user->id],
+            //         ['img' => $base64Image]
+            //     );
+                
+            // }
+            // //convert image to base64        step 1
+            // $base64Image = base64_encode(Image::make($image)->encode('jpeg'));
+    
+            //save image to database
+            // $picture = Picture::updateOrCreate([
+            //     'user_id' => $user->id,
+            //     'img' => $base64Image, 
+            // ]);
+    
+            // step 2
+            // $image_encoded = $functions_controller->saveImage($image);
+            // $user->picture = $image_encoded;
+            
+            // $picture = Picture::updateOrCreate(
+            //     ['user_id' => $user->id],
+            //     ['img' => $base64Image]
+            // );
+            
             return response()->json([
                 'status' => 'Success',
                 'message' => 'your profile was updated successfully',
@@ -131,7 +179,7 @@ class AuthController extends Controller
                 'address' => $location->address,
                 'city' => $location->city,
                 'state' => $location->state,
-                'image' => $image->img
+                // 'img' => $picture->img ?? null
             ], 200);
         }else {
             return response()->json([
@@ -153,34 +201,72 @@ class AuthController extends Controller
             $name = $users[0]->name;
         }
         
-        if($user){
+        if($user)
+        {
             $checkProfile = Profile::where('user_id', $user_id)->get();
             $checkLocation = Location::where('user_id', $user_id)->get();
             $checkPicture = Picture::where('user_id', $user_id)->get();
             
-            if($checkProfile->isNotEmpty()&& $checkLocation->isNotEmpty()){
-                $profile = Profile::select('profiles.description', 'profiles.age', 'profiles.gender', 'locations.address', 'locations.city', 'locations.state', 'pictures.img')
-                    ->join('locations', 'profiles.user_id', '=', 'locations.user_id')
-                    ->join('pictures', 'profiles.user_id', '=', 'pictures.user_id')
-                    ->where('profiles.user_id', $user_id)
-                    ->first();
+            if($checkPicture->isNotEmpty())
+            {
+                if($checkProfile->isNotEmpty()&& $checkLocation->isNotEmpty())
+                {
+                    $profile = Profile::select('profiles.description', 'profiles.age', 'profiles.gender', 'locations.address', 'locations.city', 'locations.state', 'pictures.img')
+                        ->join('locations', 'profiles.user_id', '=', 'locations.user_id')
+                        ->join('pictures', 'profiles.user_id', '=', 'pictures.user_id')
+                        ->where('profiles.user_id', $user_id)
+                        ->first();
 
-                return response()->json([
-                    'status' => 'Success',
-                    'name' => $name,
-                    'age' => $profile->age,
-                    'description' => $profile->description,
-                    'gender' => $profile->gender,
-                    'address' => $profile->address,
-                    'city' => $profile->city,
-                    'state' => $profile->state,
-                    'image' => $profile->img
-                ], 200);
-            }else {
-                return response()->json([
-                    'status' => 'success',
-                    'message' => 'user does not have a profile yet'
-                ], 404);
+                    $response = [
+                        'status' => 'Success',
+                        'name' => $name,
+                        'age' => $profile->age,
+                        'description' => $profile->description,
+                        'gender' => $profile->gender,
+                        'address' => $profile->address,
+                        'city' => $profile->city,
+                        'state' => $profile->state
+                    ];
+                    
+                    if($profile->img) {
+                        $response['image'] = $profile->img;
+                    }
+
+                    return response()->json($response, 200);
+
+                } else {
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'user does not have a profile yet'
+                    ], 404);
+                }
+            } else {
+                if($checkProfile->isNotEmpty()&& $checkLocation->isNotEmpty())
+                {
+                    $profile = Profile::select('profiles.description', 'profiles.age', 'profiles.gender', 'locations.address', 'locations.city', 'locations.state')
+                        ->join('locations', 'profiles.user_id', '=', 'locations.user_id')
+                        ->where('profiles.user_id', $user_id)
+                        ->first();
+
+                    $response = [
+                        'status' => 'Success',
+                        'name' => $name,
+                        'age' => $profile->age,
+                        'description' => $profile->description,
+                        'gender' => $profile->gender,
+                        'address' => $profile->address,
+                        'city' => $profile->city,
+                        'state' => $profile->state
+                    ];
+
+                    return response()->json($response, 200);
+
+                } else {
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'user does not have a profile yet'
+                    ], 404);
+                }
             }
         }else {
             return response()->json([
@@ -265,26 +351,74 @@ class AuthController extends Controller
     public function addImage(Request $request) 
     {
         $user = Auth::user();
-        $image = $request->file('image');
 
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the validation rules as per your needs
         ]);
 
-        //convert image to base64
-        $base64Image = base64_encode(Image::make($image)->encode('jpeg'));
+        if ($request->has('img')) 
+        {
+            // $base64Image = $request;
+            // $imageData = base64_decode($base64Image);
+            $image = $request->file('img');
+            $imageName = uniqid() . '.' . $image->getClientOriginalExtension(); // Generate a unique name for the image
+            $imagePath = $imageName; // Adjust the storage path as per your needs
 
-        //save image to database
-        $picture = Picture::create([
-            'user_id' => $user->id,
-            'img' => $base64Image, 
-        ]);
-        
+            // file_put_contents(storage_path('app/public/images/' . $imagePath), $imageData);
+            
+            $image->storeAs('public/images/' , $imageName);
+
+            $picture = Picture::updateOrCreate(
+                ['user_id' => $user->id],
+                ['img' => $imageName],
+            );
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Image uploaded successfully!',
+                'picture' => $picture,
+            ], 201);
+        }
+
         return response()->json([
-            'status' => 'success',
-            'message' => 'Image uploaded and saved to database',
-            'base64Image' => $base64Image,
-        ], 200);
+            'status' => 'error',
+            'message' => 'Failed to upload image.',
+        ], 400);
+    
+
+        // $img = $request->file('image')->store('images');
+        // $image_encoded = $functions_controller->saveImage($img);
+
+        // $picture = new Picture;
+        // $picture->img = $image_encoded;
+        // $picture->user_id = $user->id;
+        // $picture->save();
+        // return $picture;
+        
+
+        // //convert image to base64
+        // $base64Image = base64_encode(Image::make($img)->encode('jpeg'));
+
+        // //save image to database
+        // // $picture = Picture::create([
+        // //     'user_id' => $user->id,
+        // //     'img' => $base64Image, 
+        // // ]);
+
+        // //from code Editor webiste
+        // // $user->picture = $image_encoded;
+        
+        // $image = Picture::updateOrCreate(
+        //     ['user_id' => $user->id],
+        //     ['img' => $base64Image]
+        // );
+        
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'Image uploaded and saved to database',
+        //     'base64Image' => $image,
+        // ], 200);
+
     }
 
     public function addFavorite($user_id) 

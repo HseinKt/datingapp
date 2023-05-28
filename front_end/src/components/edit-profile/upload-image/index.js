@@ -1,7 +1,6 @@
 const UploadImage = (props) => {
     return ( 
         <div className="edit-image">
-            {/* <label htmlFor="image" className="edit-title"> Upload your image</label> */}
             <label htmlFor="image" className="edit-label">
                 <div className="image-preview-container">
                     {props.previewImage && (
