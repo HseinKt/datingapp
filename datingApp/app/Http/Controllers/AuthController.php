@@ -297,8 +297,9 @@ class AuthController extends Controller
         $user = Auth::user();
         $users = DB::table('users')
                     ->join('profiles', 'profiles.user_id', '=', 'users.id')
+                    ->leftJoin('pictures', 'pictures.user_id', '=', 'users.id')
                     ->where('profiles.age',$request->age)
-                    ->select('users.id as id','users.name','profiles.age')
+                    ->select('users.id as id','users.name','profiles.age', 'pictures.img')
                     ->get();
         
         return response()->json([
@@ -328,8 +329,9 @@ class AuthController extends Controller
         $city = $request->city;
         $users = DB::table('users')
                     ->join('locations', 'locations.user_id','=', 'users.id')
+                    ->leftJoin('pictures', 'pictures.user_id', '=', 'users.id')
                     ->where('locations.city','LIKE',"%$city%")
-                    ->select('users.id as id','users.name', 'locations.city')
+                    ->select('users.id as id','users.name', 'locations.city', 'pictures.img')
                     ->get();
 
         $city = $request->city;
@@ -344,7 +346,10 @@ class AuthController extends Controller
     public function getUserbyName(Request $request)
     {
         $name = $request->name;
-        $users = User::where('name','LIKE',"%$name%")->get();
+        $users = User::select('users.*', 'pictures.img')
+                    ->leftJoin('pictures', 'pictures.user_id', '=', 'users.id')
+                    ->where('name','LIKE',"%$name%")
+                    ->get();
         
         return response()->json([
             'status' => 'success',

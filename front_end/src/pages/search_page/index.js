@@ -74,6 +74,14 @@ const SearchPage = () => {
                 .then (response => {
                     console.log(response.data)
                     setResults(response.data.users)
+
+                    setImages([])
+                    const images = response.data.users.map(user => {
+                        const newImageURL = `http://localhost:8000/storage/images/${user.img}`;
+                        return newImageURL;
+                    });
+                    setImages(images);
+                    setValue("");
                 })
                 .catch (err => {
                     console.log('Axios Error: ' + err.message);
@@ -94,6 +102,15 @@ const SearchPage = () => {
                 .then (response => {
                     console.log(response.data)
                     setResults(response.data.users)
+
+                    setImages([])
+                    const images = response.data.users.map(user => {
+                        const newImageURL = `http://localhost:8000/storage/images/${user.img}`;
+                        return newImageURL;
+                    });
+                    setImages(images);
+                    setValue("");
+
                 })
                 .catch (err => {
                     console.log('Axios Error: ' + err.message);
@@ -114,6 +131,15 @@ const SearchPage = () => {
                 .then (response => {
                     console.log(response.data)
                     setResults(response.data.users)
+
+                    setImages([])
+                    const images = response.data.users.map(user => {
+                        const newImageURL = `http://localhost:8000/storage/images/${user.img}`;
+                        return newImageURL;
+                    });
+                    setImages(images);
+                    setValue("");
+                    
                 })
                 .catch (err => {
                     console.log('Axios Error: ' + err.message);
