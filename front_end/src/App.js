@@ -19,7 +19,6 @@ function App() {
         <Route path="/" element={ <SearchPage/> }/>
         <Route path="*" element={ <NotFound/> } />
       </Routes>
-
     </>
   );
 }

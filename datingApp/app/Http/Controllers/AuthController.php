@@ -98,11 +98,6 @@ class AuthController extends Controller
         $user = Auth::user();
         if($user) 
         {
-            // $request->validate([
-            //     'age' => 'required|number',
-            //     'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-            // ]);   
-
             if($request->name == "" || $request->about == "" || $request->age == "" || $request->gender == "" || $request->address == "" || $request->city == "" || $request->state == "" )
             {
                 return response()->json([
@@ -122,51 +117,6 @@ class AuthController extends Controller
                 ['user_id' => $user->id],
                 ['address' => $request->address, 'city' => $request->city, 'state' => $request->state]
             );
-
-            // step 4
-            // if($request->hasFile('img')) {
-            //     $image = $request->file('img');
-            //     $imagePath = $image->store('profile_images', 'public');
-            //     dd($image);
-            //     // Store the image path in the database
-            //     $picture->img = $imagePath;
-            //     $picture->save();
-            // }
-
-            // if($image) {           step 3
-            //     $compressedImage = Image::make($image)
-            //         ->resize(800, null, function ($constraint) {
-            //             $constraint->aspectRatio();
-            //             $constraint->upsize();
-            //         })
-            //         ->encode('jpg', 75); // Adjust the quality (75 is just an example)
-
-            //     // Convert the compressed image to base64
-            //     $base64Image = base64_encode($compressedImage);
-
-            //     $picture = Picture::updateOrCreate(
-            //         ['user_id' => $user->id],
-            //         ['img' => $base64Image]
-            //     );
-                
-            // }
-            // //convert image to base64        step 1
-            // $base64Image = base64_encode(Image::make($image)->encode('jpeg'));
-    
-            //save image to database
-            // $picture = Picture::updateOrCreate([
-            //     'user_id' => $user->id,
-            //     'img' => $base64Image, 
-            // ]);
-    
-            // step 2
-            // $image_encoded = $functions_controller->saveImage($image);
-            // $user->picture = $image_encoded;
-            
-            // $picture = Picture::updateOrCreate(
-            //     ['user_id' => $user->id],
-            //     ['img' => $base64Image]
-            // );
             
             return response()->json([
                 'status' => 'Success',
@@ -278,9 +228,6 @@ class AuthController extends Controller
 
     public function getAllUsers(Request $request)
     {
-        // $user = User::all();
-        // $checkPicture = Picture::;
-
         $users = User::select('users.*', 'pictures.img')
                     ->leftJoin('pictures', 'pictures.user_id', '=', 'users.id')
                     ->get();
@@ -363,18 +310,13 @@ class AuthController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the validation rules as per your needs
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the validation rules
         ]);
 
         if ($request->has('img')) 
         {
-            // $base64Image = $request;
-            // $imageData = base64_decode($base64Image);
             $image = $request->file('img');
             $imageName = uniqid() . '.' . $image->getClientOriginalExtension(); // Generate a unique name for the image
-            $imagePath = $imageName; // Adjust the storage path as per your needs
-
-            // file_put_contents(storage_path('app/public/images/' . $imagePath), $imageData);
             
             $image->storeAs('public/images/' , $imageName);
 
@@ -394,40 +336,6 @@ class AuthController extends Controller
             'status' => 'error',
             'message' => 'Failed to upload image.',
         ], 400);
-    
-
-        // $img = $request->file('image')->store('images');
-        // $image_encoded = $functions_controller->saveImage($img);
-
-        // $picture = new Picture;
-        // $picture->img = $image_encoded;
-        // $picture->user_id = $user->id;
-        // $picture->save();
-        // return $picture;
-        
-
-        // //convert image to base64
-        // $base64Image = base64_encode(Image::make($img)->encode('jpeg'));
-
-        // //save image to database
-        // // $picture = Picture::create([
-        // //     'user_id' => $user->id,
-        // //     'img' => $base64Image, 
-        // // ]);
-
-        // //from code Editor webiste
-        // // $user->picture = $image_encoded;
-        
-        // $image = Picture::updateOrCreate(
-        //     ['user_id' => $user->id],
-        //     ['img' => $base64Image]
-        // );
-        
-        // return response()->json([
-        //     'status' => 'success',
-        //     'message' => 'Image uploaded and saved to database',
-        //     'base64Image' => $image,
-        // ], 200);
 
     }
 

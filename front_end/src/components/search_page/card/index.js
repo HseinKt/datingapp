@@ -30,7 +30,6 @@ const Cards = (props) => {
 
     const handleLove = () => {
         const { id } = props.data;
-        console.log(id);
 
         if(clicked == 0) {
             if(clickedBlock == 2){
@@ -46,7 +45,7 @@ const Cards = (props) => {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                 })
                 .catch (err => console.log("axios error: " + err.message))
             } catch (error) {
@@ -63,7 +62,7 @@ const Cards = (props) => {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                 })
                 .catch (err => console.log("axios error: " + err.message))
             } catch (error) {
@@ -88,7 +87,7 @@ const Cards = (props) => {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                 })
                 .catch (err => console.log("axios error: " + err.message))
             } catch (error) {
@@ -105,7 +104,7 @@ const Cards = (props) => {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                 })
                 .catch (err => console.log("axios error: " + err.message))
             } catch (error) {

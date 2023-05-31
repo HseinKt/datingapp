@@ -32,7 +32,7 @@ const ProfilePage = () => {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     setName(response.data.name);
                     setAge(response.data.age);
                     setGender(response.data.gender);
@@ -50,7 +50,6 @@ const ProfilePage = () => {
                     if(err.response.status === 404) {
                         console.log("user does not have a profile yet.")
                         setName(user_name);
-                        console.log(user_name);
                     } else {
                         console.log("axios error:" + err.message);
                     }

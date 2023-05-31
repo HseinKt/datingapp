@@ -34,7 +34,6 @@ const EditProfile = () => {
                     }
                 })
                 .then(response => {
-                    console.log("get profile api: "+response.data);
                     setName(response.data.name);
                     setAge(response.data.age);
                     setGender(response.data.gender);
@@ -99,7 +98,6 @@ const EditProfile = () => {
                     }
                 })
                 .then(response => {
-                    console.log(response);
 
                     if(image) 
                     {
@@ -115,7 +113,6 @@ const EditProfile = () => {
                                 }
                             })
                             .then(response => {
-                                console.log(response);
                                 navigate("/profile");
                             })
                             .catch(err => {

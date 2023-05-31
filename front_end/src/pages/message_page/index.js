@@ -31,9 +31,8 @@ const MessagePage = () => {
                     }
                 })
                 .then (response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     setMessages(response.data.user_message)
-                    console.log(response.data.sender_id);
                 })
                 .catch(err => console.log("Axios error: " + err.message))
             } catch (error) {
@@ -62,8 +61,7 @@ const MessagePage = () => {
                 }
             })
             .then(response => {
-                console.log(messages);
-                console.log(response.data.user_message);
+                // console.log(messages);
                 setMessages([...messages,response.data.user_message]);
             })
             .catch(err => console.log("Axios error: "+err.message))

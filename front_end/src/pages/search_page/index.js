@@ -6,7 +6,6 @@ import Cards from "../../components/search_page/card";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 const SearchPage = () => {
     const [value, setValue] = useState('');
     const [token, setToken] = useState("");
@@ -31,7 +30,6 @@ const SearchPage = () => {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
                     setResults(response.data.users);
 
                     const images = response.data.users.map(user => {
@@ -51,13 +49,11 @@ const SearchPage = () => {
 
     const handleOptionClick = (optionId) => {
         setSelectedOption(optionId);
-        console.log(selectedOption);
     }
 
     const handleChange = (e)=> {
         e.preventDefault();
         setValue(e.target.value);
-        console.log(e.target.value);
     }
 
     const handleSubmit = (e) => {
@@ -72,7 +68,6 @@ const SearchPage = () => {
                     }
                 })
                 .then (response => {
-                    console.log(response.data)
                     setResults(response.data.users)
 
                     setImages([])
@@ -100,7 +95,6 @@ const SearchPage = () => {
                     }
                 })
                 .then (response => {
-                    console.log(response.data)
                     setResults(response.data.users)
 
                     setImages([])
@@ -129,7 +123,6 @@ const SearchPage = () => {
                     }
                 })
                 .then (response => {
-                    console.log(response.data)
                     setResults(response.data.users)
 
                     setImages([])
@@ -176,7 +169,6 @@ const SearchPage = () => {
                         Profile
                     </button>
                 </div>
-                
             </div>
             <div className="cards">
                 {results.map((user, index) => (

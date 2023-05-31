@@ -8,8 +8,6 @@ const RegisterPage = () => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     const [repeat_password, setRepeat_password] = useState("");
-    // const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    // const upperCase = /[A-Z]/;
     const Email_pattern=/[a-z0-9]+@[a-z0-9.-]+\.[a-z]{3,}$/;
 
     const handleSubmit = async(e)=> {
@@ -37,7 +35,6 @@ const RegisterPage = () => {
         try {
             axios.post("http://localhost:8000/api/v0.0.1/register", formData)
             .then(response => {
-                // console.log(response.data);
                 navigate("/login");
             })
             .catch(error => {

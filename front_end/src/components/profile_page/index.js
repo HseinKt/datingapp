@@ -18,13 +18,10 @@ const Profile = (props) => {
         }
         else {
             setToken(myToken);
-            console.log(id);
-
         }
     })
 
     const handleLove = () => {
-        // const id = localStorage.getItem('user_id');
         console.log(id);
         if(clicked == 0) {
             if(clickedBlock == 2){
@@ -40,7 +37,7 @@ const Profile = (props) => {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                 })
                 .catch (err => console.log("axios error: " + err.message))
             } catch (error) {
@@ -57,7 +54,7 @@ const Profile = (props) => {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                 })
                 .catch (err => console.log("axios error: " + err.message))
             } catch (error) {
@@ -67,8 +64,6 @@ const Profile = (props) => {
     }  
     
     const handleBlock = () => {
-        // const id = localStorage.getItem('user_id');
-
         if (clickedBlock == 0) {
             if(clicked == 1) {
                 setClicked(0)
@@ -83,7 +78,7 @@ const Profile = (props) => {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                 })
                 .catch (err => console.log("axios error: " + err.message))
             } catch (error) {
@@ -100,7 +95,7 @@ const Profile = (props) => {
                     }
                 })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                 })
                 .catch (err => console.log("axios error: " + err.message))
             } catch (error) {
